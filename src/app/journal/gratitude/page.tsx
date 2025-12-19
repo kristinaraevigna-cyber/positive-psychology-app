@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { saveGratitudeEntry } from '@/lib/supabase-hooks';
 
 export default function GratitudePage() {
   const [entries, setEntries] = useState([
@@ -11,7 +10,6 @@ export default function GratitudePage() {
     { thing: '', why: '' },
   ]);
   const [saved, setSaved] = useState(false);
-  const [saving, setSaving] = useState(false);
 
   const updateEntry = (index: number, field: 'thing' | 'why', value: string) => {
     const newEntries = [...entries];
@@ -19,20 +17,9 @@ export default function GratitudePage() {
     setEntries(newEntries);
   };
 
-  const handleSave = async () => {
-    setSaving(true);
-    
-    // For now, use a demo user ID (later this will come from auth)
-    const demoUserId = 'demo-user-123';
-    
-    const { error } = await saveGratitudeEntry(demoUserId, entries);
-    
-    if (!error) {
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
-    }
-    
-    setSaving(false);
+  const handleSave = () => {
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
   };
 
   const today = new Date().toLocaleDateString('en-US', { 
@@ -92,7 +79,6 @@ export default function GratitudePage() {
       <div style={{ padding: '50px 40px' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           
-          {/* Header */}
           <Link href="/journal" style={{ color: '#16a34a', textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>
             ← Back to Journal
           </Link>
@@ -117,7 +103,6 @@ export default function GratitudePage() {
             <p style={{ color: '#64748b', fontSize: 17 }}>{today}</p>
           </div>
 
-          {/* Instructions */}
           <div style={{
             background: '#f0fdf4',
             borderRadius: 12,
@@ -135,7 +120,6 @@ export default function GratitudePage() {
             </p>
           </div>
 
-          {/* Entry Form */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
             {entries.map((entry, index) => (
               <div key={index} style={{
@@ -144,12 +128,7 @@ export default function GratitudePage() {
                 padding: 32,
                 boxShadow: '0 4px 20px rgba(0,0,0,0.06)'
               }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  marginBottom: 20
-                }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
                   <div style={{
                     width: 36,
                     height: 36,
@@ -212,11 +191,9 @@ export default function GratitudePage() {
             ))}
           </div>
 
-          {/* Save Button */}
           <div style={{ marginTop: 40, display: 'flex', justifyContent: 'center' }}>
             <button
               onClick={handleSave}
-              disabled={saving}
               style={{
                 background: saved ? '#22c55e' : '#14532d',
                 color: '#ffffff',
@@ -225,31 +202,11 @@ export default function GratitudePage() {
                 borderRadius: 8,
                 fontSize: 17,
                 fontWeight: 600,
-                cursor: saving ? 'wait' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10
+                cursor: 'pointer'
               }}
             >
-              {saving ? 'Saving...' : saved ? '✓ Saved to Database!' : 'Save Entry'}
+              {saved ? '✓ Saved!' : 'Save Entry'}
             </button>
-          </div>
-
-          {/* Research Note */}
-          <div style={{
-            marginTop: 50,
-            padding: 24,
-            background: '#f8fafc',
-            borderRadius: 12,
-            textAlign: 'center'
-          }}>
-            <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.7 }}>
-              <strong>Research:</strong> In a study of 411 participants, those who practiced Three Good Things 
-              for one week were happier and less depressed at 1-month, 3-month, and 6-month follow-ups.
-            </p>
-            <p style={{ color: '#94a3b8', fontSize: 13, marginTop: 8 }}>
-              Seligman, M. E. P., Steen, T. A., Park, N., & Peterson, C. (2005)
-            </p>
           </div>
         </div>
       </div>

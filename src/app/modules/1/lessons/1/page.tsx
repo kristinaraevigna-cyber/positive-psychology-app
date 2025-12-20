@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function Lesson1Page() {
   const [isCompleted, setIsCompleted] = useState(false);
 
-  return ('
+  return (
     <div style={{ minHeight: '100vh', background: '#f8faf9' }}>
       {/* Navigation */}
       <nav style={{ 

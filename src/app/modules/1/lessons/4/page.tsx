@@ -4,12 +4,19 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Lesson4Page() {
-  const [completed, setCompleted] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8faf8' }}>
+    <div style={{ minHeight: '100vh', background: '#f8faf9' }}>
       {/* Navigation */}
-      <nav style={{ background: '#14532d', padding: '0 40px' }}>
+      <nav style={{ 
+        background: '#ffffff', 
+        borderBottom: '1px solid #e5e7eb',
+        padding: '0 40px',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100
+      }}>
         <div style={{
           maxWidth: 1400,
           margin: '0 auto',
@@ -18,275 +25,282 @@ export default function Lesson4Page() {
           justifyContent: 'space-between',
           height: 70
         }}>
-          <Link href="/" style={{ textDecoration: 'none' }}>
-            <div style={{ color: '#ffffff', fontSize: 18, fontWeight: 500 }}>
-              Foundations of <span style={{ color: '#86efac' }}>Positive Psychology</span>
+          <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{
+                width: 36,
+                height: 36,
+                borderRadius: 8,
+                background: 'linear-gradient(135deg, #14532d 0%, #22c55e 100%)'
+              }} />
+              <span style={{ color: '#14532d', fontSize: 16, fontWeight: 600 }}>
+                Positive Psychology
+              </span>
             </div>
           </Link>
-          <div style={{ display: 'flex', gap: 8 }}>
-            {[
-              { href: '/dashboard', label: 'Dashboard' },
-              { href: '/modules', label: 'Modules' },
-              { href: '/journal', label: 'Journal' },
-              { href: '/assessments', label: 'Assessments' },
-            ].map((item) => (
-              <Link key={item.href} href={item.href} style={{
-                color: item.href === '/modules' ? '#86efac' : 'rgba(255,255,255,0.8)',
+          
+          <div style={{ display: 'flex', gap: 32 }}>
+            {['Dashboard', 'Modules', 'Journal', 'Assessments', 'AI Coach'].map((label) => (
+              <Link key={label} href={`/${label.toLowerCase().replace(' ', '')}`} style={{
+                color: label === 'Modules' ? '#14532d' : '#64748b',
                 textDecoration: 'none',
-                padding: '10px 20px',
-                fontSize: 15,
-                fontWeight: 500,
-                borderRadius: 6,
-                background: item.href === '/modules' ? 'rgba(255,255,255,0.1)' : 'transparent',
+                fontSize: 14,
+                fontWeight: label === 'Modules' ? 600 : 500,
               }}>
-                {item.label}
+                {label}
               </Link>
             ))}
           </div>
+
           <div style={{
-            width: 40, height: 40, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #86efac 0%, #22c55e 100%)',
+            width: 40, height: 40, borderRadius: '50%', background: '#14532d',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#14532d', fontWeight: 600
-          }}>S</div>
+            color: '#ffffff', fontSize: 14, fontWeight: 600
+          }}>JB</div>
         </div>
       </nav>
 
-      {/* Lesson Header */}
-      <div style={{ background: '#14532d', padding: '40px', color: '#ffffff' }}>
+      {/* Breadcrumb */}
+      <div style={{ background: '#ffffff', borderBottom: '1px solid #e5e7eb', padding: '16px 40px' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <Link href="/modules/1" style={{ color: '#86efac', textDecoration: 'none', fontSize: 14 }}>
-            ← Back to Module 1
-          </Link>
-          <div style={{ marginTop: 20 }}>
-            <span style={{ color: '#86efac', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
-              Lesson 4 of 6
-            </span>
-            <h1 style={{ fontSize: 36, fontWeight: 400, marginTop: 8 }}>
-              Cultural Considerations
-            </h1>
-            <p style={{ opacity: 0.8, marginTop: 8 }}>25 minutes</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#64748b' }}>
+            <Link href="/modules" style={{ color: '#64748b', textDecoration: 'none' }}>Modules</Link>
+            <span>/</span>
+            <Link href="/modules/1" style={{ color: '#64748b', textDecoration: 'none' }}>The Fundamentals</Link>
+            <span>/</span>
+            <span style={{ color: '#14532d', fontWeight: 500 }}>Lesson 4</span>
           </div>
         </div>
       </div>
 
-      {/* Lesson Content */}
-      <div style={{ padding: '60px 40px' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          
-          {/* Introduction */}
-          <div style={{ marginBottom: 50 }}>
-            <p style={{ fontSize: 20, color: '#14532d', lineHeight: 1.8, fontStyle: 'italic', borderLeft: '4px solid #22c55e', paddingLeft: 24 }}>
-              "Happiness looks different depending on where you stand in the world."
-            </p>
-          </div>
-
-          {/* WEIRD Problem */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              The WEIRD Problem
-            </h2>
-            <p style={{ fontSize: 17, color: '#475569', lineHeight: 1.8, marginBottom: 20 }}>
-              In 2010, Henrich, Heine, and Norenzayan published a landmark paper revealing that 96% of 
-              psychology research participants come from WEIRD populations:
-            </p>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginBottom: 24 }}>
-              {[
-                { letter: 'W', word: 'Western', color: '#3b82f6' },
-                { letter: 'E', word: 'Educated', color: '#8b5cf6' },
-                { letter: 'I', word: 'Industrialized', color: '#ec4899' },
-                { letter: 'R', word: 'Rich', color: '#f59e0b' },
-                { letter: 'D', word: 'Democratic', color: '#22c55e' },
-              ].map((item) => (
-                <div key={item.letter} style={{
-                  background: '#ffffff',
-                  borderRadius: 12,
-                  padding: 20,
-                  textAlign: 'center',
-                  boxShadow: '0 2px 12px rgba(0,0,0,0.06)'
-                }}>
-                  <div style={{
-                    width: 50,
-                    height: 50,
-                    borderRadius: '50%',
-                    background: item.color,
-                    color: '#fff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 24,
-                    fontWeight: 700,
-                    margin: '0 auto 12px auto'
-                  }}>
-                    {item.letter}
-                  </div>
-                  <p style={{ color: '#475569', fontSize: 14, fontWeight: 500 }}>{item.word}</p>
-                </div>
-              ))}
-            </div>
-            
-            <div style={{ background: '#fef3c7', borderRadius: 12, padding: 24 }}>
-              <h4 style={{ color: '#92400e', marginBottom: 12, fontWeight: 600 }}>The Problem</h4>
-              <p style={{ color: '#78350f', lineHeight: 1.7 }}>
-                WEIRD populations represent only 12% of the world's population, yet findings from 
-                these samples are often generalized as universal human truths. This is especially 
-                problematic for subjective experiences like happiness and wellbeing.
-              </p>
-            </div>
-          </section>
-
-          {/* Hendriks Research */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              Hendriks' Cross-Cultural Research
-            </h2>
-            <p style={{ fontSize: 17, color: '#475569', lineHeight: 1.8, marginBottom: 20 }}>
-              Researcher Sanne Hendriks has led important work examining how wellbeing manifests 
-              differently across cultures. Key findings include:
-            </p>
-            
-            <div style={{ display: 'grid', gap: 16 }}>
-              {[
-                {
-                  title: 'Happiness Definitions',
-                  content: 'Western cultures emphasize high-arousal positive emotions (excitement, joy). East Asian cultures often value low-arousal states (calm, contentment).'
-                },
-                {
-                  title: 'Self vs. Social',
-                  content: 'Individualist cultures tie wellbeing to personal achievement. Collectivist cultures emphasize social harmony and family relationships.'
-                },
-                {
-                  title: 'Expression Norms',
-                  content: 'Some cultures view expressing happiness as appropriate; others see it as inappropriate or inviting bad luck.'
-                },
-                {
-                  title: 'Life Satisfaction',
-                  content: 'What counts as a "good life" varies dramatically—career success, family honor, spiritual development, or community contribution.'
-                },
-              ].map((item, i) => (
-                <div key={i} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 24 }}>
-                  <h4 style={{ color: '#14532d', marginBottom: 8, fontWeight: 600 }}>{item.title}</h4>
-                  <p style={{ color: '#64748b', lineHeight: 1.7 }}>{item.content}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Indigenous Perspectives */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              Indigenous & Non-Western Perspectives
-            </h2>
-            <p style={{ fontSize: 17, color: '#475569', lineHeight: 1.8, marginBottom: 20 }}>
-              Many indigenous cultures have sophisticated wellbeing concepts that predate positive psychology 
-              and offer alternative frameworks:
-            </p>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              {[
-                { culture: 'Māori (NZ)', concept: 'Te Whare Tapa Whā', desc: 'Four walls of health: spiritual, mental, physical, family' },
-                { culture: 'Hawaiian', concept: 'Pono', desc: 'Righteous balance and harmony in all relationships' },
-                { culture: 'Ubuntu (African)', concept: 'Ubuntu', desc: '"I am because we are"—wellbeing through community' },
-                { culture: 'Buddhist', concept: 'Sukha', desc: 'Deep wellbeing from mental training, not external conditions' },
-              ].map((item, i) => (
-                <div key={i} style={{
-                  background: '#f0fdf4',
-                  borderRadius: 12,
-                  padding: 24
-                }}>
-                  <span style={{ color: '#16a34a', fontSize: 12, fontWeight: 600, textTransform: 'uppercase' }}>
-                    {item.culture}
-                  </span>
-                  <h4 style={{ color: '#14532d', fontSize: 18, margin: '8px 0', fontWeight: 600 }}>
-                    {item.concept}
-                  </h4>
-                  <p style={{ color: '#166534', lineHeight: 1.6, fontSize: 15 }}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Implications */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              Implications for Practice
-            </h2>
-            <div style={{ background: '#f0fdf4', borderRadius: 12, padding: 30 }}>
-              <ul style={{ color: '#166534', fontSize: 16, lineHeight: 2.2, paddingLeft: 20 }}>
-                <li><strong>Assess cultural context</strong> before applying any intervention</li>
-                <li><strong>Adapt measures</strong> rather than directly translating Western questionnaires</li>
-                <li><strong>Include local stakeholders</strong> in designing wellbeing programs</li>
-                <li><strong>Question assumptions</strong> about what "flourishing" means in each context</li>
-                <li><strong>Learn from indigenous wisdom</strong> rather than only exporting Western models</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Key Takeaways */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              Key Takeaways
-            </h2>
-            <div style={{ background: '#f0fdf4', borderRadius: 12, padding: 30 }}>
-              <ul style={{ color: '#166534', fontSize: 16, lineHeight: 2, paddingLeft: 20 }}>
-                <li>96% of psychology research uses WEIRD populations (only 12% of world)</li>
-                <li>Happiness and wellbeing are culturally constructed concepts</li>
-                <li>Individualist vs. collectivist cultures define flourishing differently</li>
-                <li>Indigenous perspectives offer valuable alternative frameworks</li>
-                <li>Ethical practice requires cultural humility and adaptation</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Navigation */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingTop: 40,
-            borderTop: '1px solid #e2e8f0'
+      {/* Main Content */}
+      <div style={{ maxWidth: 900, margin: '0 auto', padding: '40px 20px' }}>
+        
+        {/* Lesson Header */}
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ 
+            display: 'inline-block', background: '#f0fdf4', color: '#166534',
+            padding: '6px 12px', borderRadius: 20, fontSize: 13, fontWeight: 600, marginBottom: 16
           }}>
-            <Link href="/modules/1/lessons/3" style={{
-              background: '#f1f5f9',
-              color: '#14532d',
-              textDecoration: 'none',
-              padding: '16px 32px',
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 600
-            }}>
-              ← Previous
-            </Link>
-            
-            <button
-              onClick={() => setCompleted(true)}
-              style={{
-                background: completed ? '#22c55e' : '#14532d',
-                color: '#ffffff',
-                border: 'none',
-                padding: '16px 32px',
-                borderRadius: 8,
-                fontSize: 16,
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              {completed ? '✓ Completed' : 'Mark Complete'}
-            </button>
-            
-            <Link href="/modules/1/lessons/5" style={{
-              background: '#f1f5f9',
-              color: '#14532d',
-              textDecoration: 'none',
-              padding: '16px 32px',
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 600
-            }}>
-              Next →
-            </Link>
+            Lesson 4 of 6
           </div>
+          <h1 style={{ fontSize: 36, color: '#111827', fontWeight: 600, marginBottom: 12, fontFamily: 'Georgia, serif' }}>
+            Cultural Considerations
+          </h1>
+          <p style={{ color: '#64748b', fontSize: 16 }}>
+            Understanding how culture shapes our understanding of wellbeing
+          </p>
+        </div>
+
+        {/* Video Section */}
+        <div style={{
+          background: '#1a1a2e', borderRadius: 16, aspectRatio: '16/9',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: 40
+        }}>
+          <div style={{
+            width: 80, height: 80, borderRadius: '50%', background: 'rgba(255,255,255,0.1)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16
+          }}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 15 }}>Video coming soon</p>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, marginTop: 8 }}>
+            Dr. Jolanta Burke explores cultural dimensions of wellbeing
+          </p>
+        </div>
+
+        {/* Content */}
+        <div style={{ background: '#ffffff', borderRadius: 16, padding: 48, border: '1px solid #e5e7eb', marginBottom: 32 }}>
+          
+          {/* Jolanta's Story - Zimbabwe Student */}
+          <div style={{
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%)',
+            borderRadius: 12, padding: 32, marginBottom: 40, borderLeft: '4px solid #22c55e'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+              <div style={{
+                width: 48, height: 48, borderRadius: '50%', background: '#14532d',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#ffffff', fontSize: 14, fontWeight: 600
+              }}>JB</div>
+              <div>
+                <p style={{ fontWeight: 600, color: '#14532d', fontSize: 15 }}>Dr. Jolanta Burke</p>
+                <p style={{ color: '#64748b', fontSize: 13 }}>A Transformative Seminar</p>
+              </div>
+            </div>
+            <p style={{ color: '#166534', fontSize: 17, lineHeight: 1.8, fontStyle: 'italic' }}>
+              "When I worked at the University of East London, I had the privilege of engaging with students 
+              worldwide. I will never forget this one particular online seminar on wellbeing. During a discussion, 
+              one of the students from Zimbabwe commented that the positive psychological concept of wellbeing 
+              differs significantly from how it is understood in her country. Curious, I invited her to share 
+              with us her perspective. This sparked a lively discussion during which we explored diverse wellbeing 
+              views with students from China, New Zealand, and other places. This was one of the most engaging 
+              seminars I had the pleasure of delivering, and it made me realise how elitist and narrowly focused 
+              positive psychology can be if it is not carefully contextualised."
+            </p>
+          </div>
+
+          {/* WEIRD */}
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, fontFamily: 'Georgia, serif' }}>
+            The WEIRD Problem
+          </h2>
+          
+          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
+            <strong>Tom Hendriks</strong> and his team conducted a bibliometric analysis of randomised controlled 
+            trials on the science of wellbeing. They examined whether positive psychology research reached beyond 
+            <strong> WEIRD</strong> populations—an acronym for <strong>White, Educated, Industrialised, Rich, and 
+            Democratic</strong> population.
+          </p>
+
+          {/* Stats Box */}
+          <div style={{
+            background: '#f8fafc', borderRadius: 12, padding: 32, margin: '32px 0',
+            textAlign: 'center', border: '1px solid #e2e8f0'
+          }}>
+            <p style={{ fontSize: 48, fontWeight: 300, color: '#14532d', marginBottom: 8 }}>78.2%</p>
+            <p style={{ fontSize: 16, color: '#64748b' }}>
+              of randomised controlled trials were from WEIRD populations
+            </p>
+            <p style={{ fontSize: 14, color: '#94a3b8', marginTop: 8 }}>
+              Over 34,000 participants from just 24 countries
+            </p>
+          </div>
+
+          {/* Individualism vs Collectivism */}
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, marginTop: 48, fontFamily: 'Georgia, serif' }}>
+            Individualism vs. Collectivism
+          </h2>
+
+          {/* Jolanta's Story - Mixed Heritage Friend */}
+          <div style={{
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%)',
+            borderRadius: 12, padding: 32, marginBottom: 32, borderLeft: '4px solid #22c55e'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+              <div style={{
+                width: 48, height: 48, borderRadius: '50%', background: '#14532d',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#ffffff', fontSize: 14, fontWeight: 600
+              }}>JB</div>
+              <div>
+                <p style={{ fontWeight: 600, color: '#14532d', fontSize: 15 }}>Dr. Jolanta Burke</p>
+                <p style={{ color: '#64748b', fontSize: 13 }}>On Cultural Identity</p>
+              </div>
+            </div>
+            <p style={{ color: '#166534', fontSize: 17, lineHeight: 1.8, fontStyle: 'italic' }}>
+              "I am European – my genetic tests show I am over 97% Slavic. I was raised in an individualistic 
+              ideology, so positive psychology research speaks to me loud and clear. From a young age, I was 
+              taught the values of self-determination and personal responsibility. I believed that if I worked 
+              hard and studied, I could make my dreams come true. At the same time, one of my friend's family 
+              was culturally mixed, with one parent from Europe and one from Asia. Therefore, he was exposed 
+              to a collectivist culture. I always learn so much when chatting with him about his worldviews, 
+              as he is somewhere on a scale between the collectivist need for harmony and an individual's 
+              authentic pursuits."
+            </p>
+          </div>
+
+          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
+            According to <strong>Christopher and Hickinbottom</strong>, positive psychology is deeply rooted in 
+            a Western ideology of ethnocentric individualism. This approach inadvertently promotes the idea of 
+            an individual isolated from others, thereby undermining social connections and collective wellbeing. 
+            The emphasis on personal success and individual responsibility could backfire when individuals are 
+            unable to meet these "ideal" goals.
+          </p>
+
+          {/* Cultural Considerations Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, marginBottom: 32 }}>
+            {[
+              { title: 'Individualistic Cultures', items: ['Personal achievement', 'Self-determination', 'Individual rights', 'Independence'] },
+              { title: 'Collectivist Cultures', items: ['Group harmony', 'Social obligation', 'Community wellbeing', 'Interdependence'] }
+            ].map((col, i) => (
+              <div key={i} style={{ background: '#f8fafc', borderRadius: 12, padding: 24, border: '1px solid #e2e8f0' }}>
+                <h3 style={{ fontSize: 17, fontWeight: 600, color: '#111827', marginBottom: 16 }}>{col.title}</h3>
+                <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                  {col.items.map((item, j) => (
+                    <li key={j} style={{ fontSize: 15, color: '#64748b', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e' }} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Key References */}
+          <h2 style={{ fontSize: 20, color: '#111827', fontWeight: 600, marginBottom: 16, marginTop: 40 }}>
+            Key References
+          </h2>
+          
+          <div style={{ background: '#f8fafc', borderRadius: 8, padding: 20, fontSize: 14, color: '#64748b', lineHeight: 1.8 }}>
+            <p style={{ marginBottom: 12 }}>
+              Hendriks, T., et al. (2018). How WEIRD are positive psychology interventions? 
+              <em>The Journal of Positive Psychology, 14</em>(4), 489–501.
+            </p>
+            <p>
+              Christopher, J. C., & Hickinbottom, S. (2008). Positive psychology, ethnocentrism, 
+              and the disguised ideology of individualism. <em>Theory & Psychology, 18</em>(5), 563–589.
+            </p>
+          </div>
+        </div>
+
+        {/* Reflection Section */}
+        <div style={{ background: '#ffffff', borderRadius: 16, padding: 48, border: '1px solid #e5e7eb', marginBottom: 32 }}>
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, fontFamily: 'Georgia, serif' }}>
+            Reflection Questions
+          </h2>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {[
+              'How might your cultural background shape your understanding of what it means to live a "good life"?',
+              'Think of someone from a different cultural background. How might their definition of wellbeing differ from yours?',
+              'How can practitioners ensure they are culturally sensitive when applying positive psychology interventions?'
+            ].map((question, i) => (
+              <div key={i} style={{ background: '#f8fafc', borderRadius: 12, padding: 20, border: '1px solid #e2e8f0' }}>
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%', background: '#e0f2fe', color: '#0369a1',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 600, flexShrink: 0
+                  }}>{i + 1}</div>
+                  <p style={{ fontSize: 16, color: '#374151', lineHeight: 1.6 }}>{question}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 0' }}>
+          <Link href="/modules/1/lessons/3" style={{
+            display: 'flex', alignItems: 'center', gap: 8, color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500
+          }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Previous Lesson
+          </Link>
+
+          <button onClick={() => setIsCompleted(!isCompleted)} style={{
+            background: isCompleted ? '#22c55e' : '#14532d', color: '#ffffff', border: 'none',
+            padding: '14px 28px', borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', gap: 8
+          }}>
+            {isCompleted ? (
+              <><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/></svg>Completed</>
+            ) : 'Mark as Complete'}
+          </button>
+
+          <Link href="/modules/1/lessons/5" style={{
+            display: 'flex', alignItems: 'center', gap: 8, color: '#14532d', textDecoration: 'none', fontSize: 15, fontWeight: 600
+          }}>
+            Next Lesson
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </Link>
         </div>
       </div>
     </div>

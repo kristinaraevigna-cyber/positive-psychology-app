@@ -61,7 +61,7 @@ export default function HomePage() {
           </p>
           
           <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/dashboard" style={{
+            <Link href="/login" style={{
               background: '#ffffff',
               color: '#14532d',
               padding: '18px 40px',
@@ -71,9 +71,9 @@ export default function HomePage() {
               textDecoration: 'none',
               letterSpacing: 0.5
             }}>
-              Begin Your Journey
+              Sign In
             </Link>
-            <Link href="/coach" style={{
+            <Link href="/signup" style={{
               background: 'transparent',
               color: '#ffffff',
               padding: '18px 40px',
@@ -84,7 +84,7 @@ export default function HomePage() {
               border: '2px solid rgba(255,255,255,0.5)',
               letterSpacing: 0.5
             }}>
-              Meet Your AI Coach
+              Request Access
             </Link>
           </div>
         </div>
@@ -330,7 +330,7 @@ export default function HomePage() {
             interventions, discover your character strengths, and learn to apply the science 
             of flourishing in your own life.
           </p>
-          <Link href="/modules/1" style={{
+          <Link href="/signup" style={{
             color: '#86efac',
             fontSize: 16,
             fontWeight: 500,
@@ -339,7 +339,7 @@ export default function HomePage() {
             alignItems: 'center',
             gap: 8
           }}>
-            Start with Module 1 →
+            Request Access to Begin →
           </Link>
         </div>
       </div>
@@ -421,19 +421,34 @@ export default function HomePage() {
           }}>
             Start your journey into the science of human flourishing today
           </p>
-          <Link href="/dashboard" style={{
-            background: '#ffffff',
-            color: '#14532d',
-            padding: '20px 50px',
-            borderRadius: 4,
-            fontSize: 16,
-            fontWeight: 600,
-            textDecoration: 'none',
-            display: 'inline-block',
-            letterSpacing: 0.5
-          }}>
-            Enter the Course
-          </Link>
+          <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/login" style={{
+              background: '#ffffff',
+              color: '#14532d',
+              padding: '20px 50px',
+              borderRadius: 4,
+              fontSize: 16,
+              fontWeight: 600,
+              textDecoration: 'none',
+              display: 'inline-block',
+              letterSpacing: 0.5
+            }}>
+              Sign In
+            </Link>
+            <Link href="/signup" style={{
+              background: 'transparent',
+              color: '#ffffff',
+              padding: '20px 50px',
+              borderRadius: 4,
+              fontSize: 16,
+              fontWeight: 500,
+              textDecoration: 'none',
+              border: '2px solid rgba(255,255,255,0.5)',
+              letterSpacing: 0.5
+            }}>
+              Request Access
+            </Link>
+          </div>
         </div>
       </div>
 

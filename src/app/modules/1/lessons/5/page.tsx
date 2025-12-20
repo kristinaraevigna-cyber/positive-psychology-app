@@ -4,239 +4,270 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Lesson5Page() {
-  const [completed, setCompleted] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  const bigIssues = [
+    {
+      title: 'Climate Change & Eco-Wellbeing',
+      description: 'Positive psychology is increasingly addressing climate anxiety and eco-wellbeing, helping individuals find meaning and action in the face of environmental challenges.',
+      color: '#059669'
+    },
+    {
+      title: 'Bullying Prevention',
+      description: 'Strengths-based approaches and positive education programs are being used to create supportive school environments and reduce bullying.',
+      color: '#0284c7'
+    },
+    {
+      title: 'Refugee Wellbeing',
+      description: 'Understanding post-traumatic growth and resilience in refugee populations, focusing on strengths rather than deficits.',
+      color: '#7c3aed'
+    },
+    {
+      title: 'LGBTQ+ Flourishing',
+      description: 'Applying positive psychology to support LGBTQ+ individuals in developing resilience, finding meaning, and building supportive communities.',
+      color: '#db2777'
+    }
+  ];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8faf8' }}>
+    <div style={{ minHeight: '100vh', background: '#f8faf9' }}>
       {/* Navigation */}
-      <nav style={{ background: '#14532d', padding: '0 40px' }}>
-        <div style={{
-          maxWidth: 1400,
-          margin: '0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          height: 70
-        }}>
-          <Link href="/" style={{ textDecoration: 'none' }}>
-            <div style={{ color: '#ffffff', fontSize: 18, fontWeight: 500 }}>
-              Foundations of <span style={{ color: '#86efac' }}>Positive Psychology</span>
+      <nav style={{ background: '#ffffff', borderBottom: '1px solid #e5e7eb', padding: '0 40px', position: 'sticky', top: 0, zIndex: 100 }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 70 }}>
+          <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 36, height: 36, borderRadius: 8, background: 'linear-gradient(135deg, #14532d 0%, #22c55e 100%)' }} />
+              <span style={{ color: '#14532d', fontSize: 16, fontWeight: 600 }}>Positive Psychology</span>
             </div>
           </Link>
-          <div style={{ display: 'flex', gap: 8 }}>
-            {[
-              { href: '/dashboard', label: 'Dashboard' },
-              { href: '/modules', label: 'Modules' },
-              { href: '/journal', label: 'Journal' },
-              { href: '/assessments', label: 'Assessments' },
-            ].map((item) => (
-              <Link key={item.href} href={item.href} style={{
-                color: item.href === '/modules' ? '#86efac' : 'rgba(255,255,255,0.8)',
-                textDecoration: 'none',
-                padding: '10px 20px',
-                fontSize: 15,
-                fontWeight: 500,
-                borderRadius: 6,
-                background: item.href === '/modules' ? 'rgba(255,255,255,0.1)' : 'transparent',
-              }}>
-                {item.label}
-              </Link>
+          <div style={{ display: 'flex', gap: 32 }}>
+            {['Dashboard', 'Modules', 'Journal', 'Assessments', 'AI Coach'].map((label) => (
+              <Link key={label} href={`/${label.toLowerCase().replace(' ', '')}`} style={{
+                color: label === 'Modules' ? '#14532d' : '#64748b', textDecoration: 'none', fontSize: 14, fontWeight: label === 'Modules' ? 600 : 500
+              }}>{label}</Link>
             ))}
           </div>
-          <div style={{
-            width: 40, height: 40, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #86efac 0%, #22c55e 100%)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#14532d', fontWeight: 600
-          }}>S</div>
+          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#14532d', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: 14, fontWeight: 600 }}>JB</div>
         </div>
       </nav>
 
-      {/* Lesson Header */}
-      <div style={{ background: '#14532d', padding: '40px', color: '#ffffff' }}>
+      {/* Breadcrumb */}
+      <div style={{ background: '#ffffff', borderBottom: '1px solid #e5e7eb', padding: '16px 40px' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <Link href="/modules/1" style={{ color: '#86efac', textDecoration: 'none', fontSize: 14 }}>
-            ← Back to Module 1
-          </Link>
-          <div style={{ marginTop: 20 }}>
-            <span style={{ color: '#86efac', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
-              Lesson 5 of 6
-            </span>
-            <h1 style={{ fontSize: 36, fontWeight: 400, marginTop: 8 }}>
-              Global Applications
-            </h1>
-            <p style={{ opacity: 0.8, marginTop: 8 }}>20 minutes</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#64748b' }}>
+            <Link href="/modules" style={{ color: '#64748b', textDecoration: 'none' }}>Modules</Link>
+            <span>/</span>
+            <Link href="/modules/1" style={{ color: '#64748b', textDecoration: 'none' }}>The Fundamentals</Link>
+            <span>/</span>
+            <span style={{ color: '#14532d', fontWeight: 500 }}>Lesson 5</span>
           </div>
         </div>
       </div>
 
-      {/* Lesson Content */}
-      <div style={{ padding: '60px 40px' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      {/* Main Content */}
+      <div style={{ maxWidth: 900, margin: '0 auto', padding: '40px 20px' }}>
+        
+        {/* Lesson Header */}
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ display: 'inline-block', background: '#f0fdf4', color: '#166534', padding: '6px 12px', borderRadius: 20, fontSize: 13, fontWeight: 600, marginBottom: 16 }}>
+            Lesson 5 of 6
+          </div>
+          <h1 style={{ fontSize: 36, color: '#111827', fontWeight: 600, marginBottom: 12, fontFamily: 'Georgia, serif' }}>
+            Big Issues in Positive Psychology
+          </h1>
+          <p style={{ color: '#64748b', fontSize: 16 }}>
+            How positive psychology addresses major global challenges
+          </p>
+        </div>
+
+        {/* Video Section */}
+        <div style={{
+          background: '#1a1a2e', borderRadius: 16, aspectRatio: '16/9',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: 40
+        }}>
+          <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 15 }}>Video coming soon</p>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, marginTop: 8 }}>
+            Dr. Jolanta Burke discusses positive psychology's response to global challenges
+          </p>
+        </div>
+
+        {/* Content */}
+        <div style={{ background: '#ffffff', borderRadius: 16, padding: 48, border: '1px solid #e5e7eb', marginBottom: 32 }}>
           
-          {/* Introduction */}
-          <div style={{ marginBottom: 50 }}>
-            <p style={{ fontSize: 20, color: '#14532d', lineHeight: 1.8, fontStyle: 'italic', borderLeft: '4px solid #22c55e', paddingLeft: 24 }}>
-              "The ultimate test of any psychology is whether it can help address the real challenges people face."
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, fontFamily: 'Georgia, serif' }}>
+            Addressing Global Challenges
+          </h2>
+          
+          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
+            Positive psychology has expanded beyond individual wellbeing to address some of the most pressing 
+            challenges of our time. The field recognises that true flourishing cannot happen in isolation from 
+            the broader social, environmental, and political contexts in which people live.
+          </p>
+
+          {/* Big Issues Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginBottom: 40 }}>
+            {bigIssues.map((issue, i) => (
+              <div key={i} style={{
+                background: '#ffffff', borderRadius: 12, padding: 24,
+                border: '1px solid #e2e8f0', borderTop: `4px solid ${issue.color}`
+              }}>
+                <h3 style={{ fontSize: 17, fontWeight: 600, color: '#111827', marginBottom: 12 }}>
+                  {issue.title}
+                </h3>
+                <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.7, margin: 0 }}>
+                  {issue.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Climate Section */}
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, marginTop: 48, fontFamily: 'Georgia, serif' }}>
+            Climate Anxiety & Eco-Wellbeing
+          </h2>
+
+          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
+            With growing awareness of climate change, many individuals—particularly young people—experience 
+            what researchers call "eco-anxiety" or "climate grief." Positive psychology offers frameworks 
+            for finding meaning and agency in the face of environmental challenges, promoting sustainable 
+            behaviours that align with personal values.
+          </p>
+
+          {/* Quote Box */}
+          <div style={{
+            background: '#f0fdf4', borderRadius: 12, padding: 32, margin: '32px 0', borderLeft: '4px solid #22c55e'
+          }}>
+            <p style={{ fontSize: 17, color: '#166534', lineHeight: 1.8, fontStyle: 'italic', margin: 0 }}>
+              "The third wave of positive psychology recognises that individual wellbeing is deeply 
+              interconnected with collective and planetary wellbeing. We cannot truly flourish while 
+              the world around us suffers."
+            </p>
+            <p style={{ color: '#64748b', fontSize: 14, marginTop: 16 }}>
+              — From "The Foundation of Positive Psychology"
             </p>
           </div>
 
-          {/* Climate */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              Climate Anxiety & Eco-Wellbeing
-            </h2>
-            <p style={{ fontSize: 17, color: '#475569', lineHeight: 1.8, marginBottom: 20 }}>
-              As climate change becomes increasingly visible, researchers are applying positive psychology 
-              to help people cope with eco-anxiety while remaining engaged with environmental action.
-            </p>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              {[
-                { title: 'Eco-Anxiety', desc: 'Chronic fear about environmental doom—affects up to 70% of young people' },
-                { title: 'Solastalgia', desc: 'Distress from environmental change in one\'s home environment' },
-                { title: 'Meaning-Making', desc: 'Finding purpose through climate action and community involvement' },
-                { title: 'Hope & Agency', desc: 'Balancing realistic assessment with empowered action' },
-              ].map((item, i) => (
-                <div key={i} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
-                  <h4 style={{ color: '#14532d', marginBottom: 8, fontWeight: 600 }}>{item.title}</h4>
-                  <p style={{ color: '#64748b', lineHeight: 1.6, fontSize: 15 }}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+          {/* Bullying Prevention */}
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, marginTop: 48, fontFamily: 'Georgia, serif' }}>
+            Bullying Prevention in Schools
+          </h2>
 
-          {/* Bullying */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              Anti-Bullying & School Wellbeing
-            </h2>
-            <p style={{ fontSize: 17, color: '#475569', lineHeight: 1.8, marginBottom: 20 }}>
-              Positive psychology has contributed significantly to school-based interventions that go 
-              beyond punishment to build positive school climates and resilience.
-            </p>
-            
-            <div style={{ background: '#f0fdf4', borderRadius: 12, padding: 24 }}>
-              <h4 style={{ color: '#14532d', marginBottom: 16, fontWeight: 600 }}>Evidence-Based Approaches</h4>
-              <ul style={{ color: '#166534', lineHeight: 2, paddingLeft: 20 }}>
-                <li><strong>Whole-school approaches:</strong> Creating positive cultures, not just punishing bullies</li>
-                <li><strong>Strengths-based programs:</strong> Helping all students identify and use their strengths</li>
-                <li><strong>Bystander empowerment:</strong> Training students to intervene constructively</li>
-                <li><strong>Social-emotional learning:</strong> Building empathy, self-regulation, and relationship skills</li>
-                <li><strong>Restorative practices:</strong> Repairing harm rather than just punishing</li>
-              </ul>
-            </div>
-          </section>
+          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
+            Positive education approaches have been particularly effective in addressing bullying. Rather than 
+            focusing solely on punitive measures, strengths-based programmes help create school environments 
+            where bullying is less likely to occur. These programmes build empathy, resilience, and positive 
+            peer relationships.
+          </p>
 
-          {/* Refugees */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              Refugee & Immigrant Wellbeing
-            </h2>
-            <p style={{ fontSize: 17, color: '#475569', lineHeight: 1.8, marginBottom: 20 }}>
-              With over 100 million displaced people worldwide, positive psychology offers frameworks 
-              for supporting resilience and post-traumatic growth in refugee populations.
-            </p>
-            
-            <div style={{ display: 'grid', gap: 16 }}>
-              {[
-                { approach: 'Post-Traumatic Growth', desc: 'Many refugees report positive changes after adversity—new priorities, deeper relationships, greater appreciation for life' },
-                { approach: 'Cultural Identity Strengths', desc: 'Maintaining cultural practices and identity as protective factors for wellbeing' },
-                { approach: 'Community Connections', desc: 'Social support and community belonging as key predictors of adaptation' },
-              ].map((item, i) => (
-                <div key={i} style={{ background: '#ffffff', borderRadius: 12, padding: 24, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
-                  <h4 style={{ color: '#14532d', marginBottom: 8, fontWeight: 600 }}>{item.approach}</h4>
-                  <p style={{ color: '#64748b', lineHeight: 1.7 }}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+          {/* Refugee Wellbeing */}
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, marginTop: 48, fontFamily: 'Georgia, serif' }}>
+            Supporting Refugee Populations
+          </h2>
 
-          {/* LGBTQ+ */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              LGBTQ+ Affirmative Approaches
-            </h2>
-            <p style={{ fontSize: 17, color: '#475569', lineHeight: 1.8, marginBottom: 20 }}>
-              Positive psychology is increasingly being applied to support LGBTQ+ flourishing, moving 
-              beyond a deficit model to celebrate diverse identities and build resilience.
-            </p>
-            
-            <div style={{ background: '#faf5ff', borderRadius: 12, padding: 24, borderLeft: '4px solid #8b5cf6' }}>
-              <h4 style={{ color: '#6b21a8', marginBottom: 16, fontWeight: 600 }}>Key Applications</h4>
-              <ul style={{ color: '#7c3aed', lineHeight: 2, paddingLeft: 20 }}>
-                <li><strong>Identity affirmation:</strong> Supporting authentic self-expression as wellbeing</li>
-                <li><strong>Community connection:</strong> LGBTQ+ spaces and chosen family as strengths</li>
-                <li><strong>Minority stress coping:</strong> Building resilience in face of discrimination</li>
-                <li><strong>Pride and meaning:</strong> Finding purpose through advocacy and community</li>
-              </ul>
-            </div>
-          </section>
+          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
+            Positive psychology's focus on resilience and post-traumatic growth offers valuable perspectives 
+            for supporting refugees. Rather than viewing refugees only through the lens of trauma and deficit, 
+            this approach recognises and builds upon their strengths, cultural resources, and capacity for 
+            adaptation.
+          </p>
+
+          {/* LGBTQ+ Section */}
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, marginTop: 48, fontFamily: 'Georgia, serif' }}>
+            LGBTQ+ Flourishing
+          </h2>
+
+          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
+            Positive psychology has increasingly addressed the wellbeing of LGBTQ+ individuals, moving beyond 
+            a focus on minority stress to explore the unique strengths and sources of meaning within LGBTQ+ 
+            communities. This includes examining how identity affirmation, community connection, and pride 
+            contribute to flourishing.
+          </p>
 
           {/* Key Takeaways */}
-          <section style={{ marginBottom: 50 }}>
-            <h2 style={{ fontSize: 26, color: '#14532d', marginBottom: 20, fontWeight: 500 }}>
-              Key Takeaways
-            </h2>
-            <div style={{ background: '#f0fdf4', borderRadius: 12, padding: 30 }}>
-              <ul style={{ color: '#166534', fontSize: 16, lineHeight: 2, paddingLeft: 20 }}>
-                <li>Positive psychology addresses contemporary challenges like climate anxiety</li>
-                <li>School interventions focus on building positive cultures, not just punishment</li>
-                <li>Refugee research highlights post-traumatic growth and cultural strengths</li>
-                <li>LGBTQ+ applications celebrate identity and community as wellbeing factors</li>
-                <li>Global applications require cultural sensitivity and adaptation</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Navigation */}
           <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingTop: 40,
-            borderTop: '1px solid #e2e8f0'
+            background: '#f8fafc', borderRadius: 12, padding: 32, margin: '32px 0', border: '1px solid #e2e8f0'
           }}>
-            <Link href="/modules/1/lessons/4" style={{
-              background: '#f1f5f9',
-              color: '#14532d',
-              textDecoration: 'none',
-              padding: '16px 32px',
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 600
-            }}>
-              ← Previous
-            </Link>
-            
-            <button
-              onClick={() => setCompleted(true)}
-              style={{
-                background: completed ? '#22c55e' : '#14532d',
-                color: '#ffffff',
-                border: 'none',
-                padding: '16px 32px',
-                borderRadius: 8,
-                fontSize: 16,
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              {completed ? '✓ Completed' : 'Mark Complete'}
-            </button>
-            
-            <Link href="/modules/1/lessons/6" style={{
-              background: '#f1f5f9',
-              color: '#14532d',
-              textDecoration: 'none',
-              padding: '16px 32px',
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 600
-            }}>
-              Next →
-            </Link>
+            <h3 style={{ fontSize: 18, fontWeight: 600, color: '#111827', marginBottom: 16 }}>
+              Key Takeaways
+            </h3>
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+              {[
+                'Positive psychology is expanding to address systemic and global issues',
+                'Individual wellbeing cannot be separated from collective and environmental wellbeing',
+                'Strengths-based approaches can be applied to vulnerable populations',
+                'The field must continue to adapt to emerging challenges like climate change'
+              ].map((item, i) => (
+                <li key={i} style={{ fontSize: 15, color: '#374151', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" style={{ flexShrink: 0, marginTop: 2 }}>
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
+        </div>
+
+        {/* Reflection Section */}
+        <div style={{ background: '#ffffff', borderRadius: 16, padding: 48, border: '1px solid #e5e7eb', marginBottom: 32 }}>
+          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, fontFamily: 'Georgia, serif' }}>
+            Reflection Questions
+          </h2>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {[
+              'Which of these "big issues" resonates most with you? Why?',
+              'How might positive psychology approaches be applied to other global challenges you care about?',
+              'What role can individual wellbeing practices play in addressing systemic issues?'
+            ].map((question, i) => (
+              <div key={i} style={{ background: '#f8fafc', borderRadius: 12, padding: 20, border: '1px solid #e2e8f0' }}>
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%', background: '#e0f2fe', color: '#0369a1',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 600, flexShrink: 0
+                  }}>{i + 1}</div>
+                  <p style={{ fontSize: 16, color: '#374151', lineHeight: 1.6 }}>{question}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 0' }}>
+          <Link href="/modules/1/lessons/4" style={{
+            display: 'flex', alignItems: 'center', gap: 8, color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500
+          }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Previous Lesson
+          </Link>
+
+          <button onClick={() => setIsCompleted(!isCompleted)} style={{
+            background: isCompleted ? '#22c55e' : '#14532d', color: '#ffffff', border: 'none',
+            padding: '14px 28px', borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', gap: 8
+          }}>
+            {isCompleted ? (
+              <><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/></svg>Completed</>
+            ) : 'Mark as Complete'}
+          </button>
+
+          <Link href="/modules/1/lessons/6" style={{
+            display: 'flex', alignItems: 'center', gap: 8, color: '#14532d', textDecoration: 'none', fontSize: 15, fontWeight: 600
+          }}>
+            Next Lesson
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </Link>
         </div>
       </div>
     </div>

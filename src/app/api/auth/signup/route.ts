@@ -1,14 +1,20 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-
-// Use service role for admin actions like creating users
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
 export async function POST(request: NextRequest) {
   try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    // Check if environment variables are set
+    if (!supabaseUrl || !supabaseServiceKey) {
+      return NextResponse.json({ 
+        error: 'Service temporarily unavailable. Please contact support.' 
+      }, { status: 503 });
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
     const { email, password, name } = await request.json();
 
     const { data, error } = await supabase.auth.admin.createUser({

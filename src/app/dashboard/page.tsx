@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
-  const [activeNav, setActiveNav] = useState('dashboard');
+  const [chatMessage, setChatMessage] = useState('');
 
   const stats = [
     { label: 'Lessons Completed', value: '4', total: '35', percentage: 11 },
@@ -21,18 +21,17 @@ export default function DashboardPage() {
     { id: 5, title: 'Multidisciplinary Applications', subtitle: 'Health, Education & Work', lessons: 6, completed: 0, unlocked: false },
   ];
 
-  const recentActivity = [
-    { type: 'lesson', title: 'Cultural Considerations', time: '2 hours ago' },
-    { type: 'journal', title: 'Three Good Things', time: 'Yesterday' },
-    { type: 'assessment', title: 'Character Strengths', time: '3 days ago' },
+  const suggestedQuestions = [
+    'What is the PERMA model?',
+    'How can I use character strengths?',
+    'What are the three waves of positive psychology?',
   ];
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8faf9' }}>
-      {/* Navigation */}
+      {/* Green Navigation */}
       <nav style={{ 
-        background: '#ffffff', 
-        borderBottom: '1px solid #e5e7eb',
+        background: 'linear-gradient(135deg, #14532d 0%, #166534 100%)',
         padding: '0 40px',
         position: 'sticky',
         top: 0,
@@ -52,50 +51,60 @@ export default function DashboardPage() {
                 width: 36,
                 height: 36,
                 borderRadius: 8,
-                background: 'linear-gradient(135deg, #14532d 0%, #22c55e 100%)'
-              }} />
-              <span style={{ color: '#14532d', fontSize: 16, fontWeight: 600 }}>
+                background: 'rgba(255,255,255,0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <div style={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: 4,
+                  background: '#86efac'
+                }} />
+              </div>
+              <span style={{ color: '#ffffff', fontSize: 16, fontWeight: 600 }}>
                 Positive Psychology
               </span>
             </div>
           </Link>
           
-          <div style={{ display: 'flex', gap: 32 }}>
+          <div style={{ display: 'flex', gap: 8 }}>
             {[
-              { href: '/dashboard', label: 'Dashboard', key: 'dashboard' },
-              { href: '/modules', label: 'Modules', key: 'modules' },
-              { href: '/journal', label: 'Journal', key: 'journal' },
-              { href: '/assessments', label: 'Assessments', key: 'assessments' },
-              { href: '/coach', label: 'AI Coach', key: 'coach' },
+              { href: '/dashboard', label: 'Dashboard', active: true },
+              { href: '/modules', label: 'Modules', active: false },
+              { href: '/journal', label: 'Journal', active: false },
+              { href: '/assessments', label: 'Assessments', active: false },
+              { href: '/coach', label: 'AI Coach', active: false },
             ].map((item) => (
-              <Link key={item.key} href={item.href} style={{
-                color: item.key === 'dashboard' ? '#14532d' : '#64748b',
+              <Link key={item.href} href={item.href} style={{
+                color: item.active ? '#ffffff' : 'rgba(255,255,255,0.8)',
                 textDecoration: 'none',
                 fontSize: 14,
-                fontWeight: item.key === 'dashboard' ? 600 : 500,
-                padding: '8px 0',
-                borderBottom: item.key === 'dashboard' ? '2px solid #14532d' : '2px solid transparent'
+                fontWeight: 500,
+                padding: '8px 16px',
+                borderRadius: 8,
+                background: item.active ? 'rgba(255,255,255,0.15)' : 'transparent',
+                transition: 'all 0.2s'
               }}>
                 {item.label}
               </Link>
             ))}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <div style={{
-              width: 40,
-              height: 40,
-              borderRadius: '50%',
-              background: '#14532d',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              fontSize: 14,
-              fontWeight: 600
-            }}>
-              JB
-            </div>
+          <div style={{
+            width: 40,
+            height: 40,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontSize: 14,
+            fontWeight: 600
+          }}>
+            JB
           </div>
         </div>
       </nav>
@@ -106,14 +115,15 @@ export default function DashboardPage() {
         {/* Header */}
         <div style={{ marginBottom: 40 }}>
           <h1 style={{ 
-            fontSize: 28, 
+            fontSize: 32, 
             color: '#111827', 
             fontWeight: 600,
-            marginBottom: 8
+            marginBottom: 8,
+            fontFamily: 'Georgia, serif'
           }}>
             Welcome back
           </h1>
-          <p style={{ color: '#64748b', fontSize: 15 }}>
+          <p style={{ color: '#64748b', fontSize: 16 }}>
             Continue your journey into the science of human flourishing
           </p>
         </div>
@@ -134,8 +144,8 @@ export default function DashboardPage() {
             }}>
               <p style={{ 
                 color: '#64748b', 
-                fontSize: 13, 
-                fontWeight: 500,
+                fontSize: 12, 
+                fontWeight: 600,
                 textTransform: 'uppercase',
                 letterSpacing: 0.5,
                 marginBottom: 12
@@ -178,7 +188,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Main Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: 32 }}>
           
           {/* Left Column - Modules */}
           <div>
@@ -188,7 +198,12 @@ export default function DashboardPage() {
               alignItems: 'center',
               marginBottom: 20
             }}>
-              <h2 style={{ fontSize: 18, fontWeight: 600, color: '#111827' }}>
+              <h2 style={{ 
+                fontSize: 20, 
+                fontWeight: 600, 
+                color: '#111827',
+                fontFamily: 'Georgia, serif'
+              }}>
                 Course Modules
               </h2>
               <Link href="/modules" style={{
@@ -197,7 +212,7 @@ export default function DashboardPage() {
                 fontWeight: 500,
                 textDecoration: 'none'
               }}>
-                View all →
+                View all
               </Link>
             </div>
 
@@ -240,7 +255,7 @@ export default function DashboardPage() {
                     {/* Module Info */}
                     <div style={{ flex: 1 }}>
                       <h3 style={{ 
-                        fontSize: 15, 
+                        fontSize: 16, 
                         fontWeight: 600, 
                         color: '#111827',
                         marginBottom: 4
@@ -272,20 +287,10 @@ export default function DashboardPage() {
                           </p>
                         </>
                       ) : (
-                        <div style={{
-                          width: 24,
-                          height: 24,
-                          borderRadius: '50%',
-                          border: '2px solid #d1d5db',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center'
-                        }}>
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2.5">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                          </svg>
-                        </div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
                       )}
                     </div>
                   </div>
@@ -297,6 +302,94 @@ export default function DashboardPage() {
           {/* Right Column */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             
+            {/* AI Coach Card */}
+            <div style={{
+              background: 'linear-gradient(135deg, #14532d 0%, #166534 100%)',
+              borderRadius: 16,
+              padding: 28,
+              color: '#ffffff'
+            }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 12,
+                marginBottom: 16
+              }}>
+                <div style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: 12,
+                  background: 'rgba(255,255,255,0.15)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: 18, fontWeight: 600 }}>AI Coach</h3>
+                  <p style={{ fontSize: 13, opacity: 0.8 }}>Dr. Flourish is here to help</p>
+                </div>
+              </div>
+
+              <p style={{ 
+                fontSize: 14, 
+                opacity: 0.9,
+                lineHeight: 1.6,
+                marginBottom: 20
+              }}>
+                Ask questions about positive psychology concepts, get guidance on interventions, 
+                or explore your character strengths.
+              </p>
+
+              {/* Quick Questions */}
+              <div style={{ marginBottom: 16 }}>
+                <p style={{ fontSize: 12, opacity: 0.7, marginBottom: 8 }}>Try asking:</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {suggestedQuestions.map((q, i) => (
+                    <Link key={i} href={`/coach?q=${encodeURIComponent(q)}`} style={{ textDecoration: 'none' }}>
+                      <div style={{
+                        background: 'rgba(255,255,255,0.1)',
+                        padding: '10px 14px',
+                        borderRadius: 8,
+                        fontSize: 13,
+                        color: '#ffffff',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
+                      }}>
+                        {q}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <Link href="/coach" style={{ textDecoration: 'none' }}>
+                <button style={{
+                  width: '100%',
+                  padding: '14px',
+                  background: '#ffffff',
+                  color: '#14532d',
+                  border: 'none',
+                  borderRadius: 8,
+                  fontSize: 15,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8
+                }}>
+                  Start a Conversation
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </Link>
+            </div>
+
             {/* Quick Actions */}
             <div style={{
               background: '#ffffff',
@@ -304,14 +397,14 @@ export default function DashboardPage() {
               padding: 24,
               border: '1px solid #e5e7eb'
             }}>
-              <h2 style={{ 
+              <h3 style={{ 
                 fontSize: 16, 
                 fontWeight: 600, 
                 color: '#111827',
-                marginBottom: 20
+                marginBottom: 16
               }}>
                 Quick Actions
-              </h2>
+              </h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <Link href="/modules/1/lessons/5" style={{ textDecoration: 'none' }}>
@@ -321,20 +414,20 @@ export default function DashboardPage() {
                     gap: 14,
                     padding: '14px 16px',
                     background: '#f0fdf4',
-                    borderRadius: 8,
+                    borderRadius: 10,
                     border: '1px solid #bbf7d0',
                     cursor: 'pointer'
                   }}>
                     <div style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: 8,
+                      width: 40,
+                      height: 40,
+                      borderRadius: 10,
                       background: '#14532d',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
                         <polygon points="5 3 19 12 5 21 5 3"/>
                       </svg>
                     </div>
@@ -343,7 +436,7 @@ export default function DashboardPage() {
                         Continue Learning
                       </p>
                       <p style={{ fontSize: 12, color: '#64748b' }}>
-                        Lesson 5: Global Applications
+                        Lesson 5: Big Issues
                       </p>
                     </div>
                   </div>
@@ -356,20 +449,20 @@ export default function DashboardPage() {
                     gap: 14,
                     padding: '14px 16px',
                     background: '#fefce8',
-                    borderRadius: 8,
+                    borderRadius: 10,
                     border: '1px solid #fef08a',
                     cursor: 'pointer'
                   }}>
                     <div style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: 8,
+                      width: 40,
+                      height: 40,
+                      borderRadius: 10,
                       background: '#a16207',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
                         <path d="M12 20h9"/>
                         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
                       </svg>
@@ -379,42 +472,42 @@ export default function DashboardPage() {
                         Daily Journal
                       </p>
                       <p style={{ fontSize: 12, color: '#64748b' }}>
-                        Record three good things
+                        Three Good Things
                       </p>
                     </div>
                   </div>
                 </Link>
 
-                <Link href="/coach" style={{ textDecoration: 'none' }}>
+                <Link href="/assessments/strengths" style={{ textDecoration: 'none' }}>
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: 14,
                     padding: '14px 16px',
                     background: '#f5f3ff',
-                    borderRadius: 8,
+                    borderRadius: 10,
                     border: '1px solid #ddd6fe',
                     cursor: 'pointer'
                   }}>
                     <div style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: 8,
+                      width: 40,
+                      height: 40,
+                      borderRadius: 10,
                       background: '#7c3aed',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                       </svg>
                     </div>
                     <div>
                       <p style={{ fontSize: 14, fontWeight: 600, color: '#7c3aed' }}>
-                        AI Coach
+                        Character Strengths
                       </p>
                       <p style={{ fontSize: 12, color: '#64748b' }}>
-                        Ask a question
+                        Discover your top strengths
                       </p>
                     </div>
                   </div>
@@ -429,17 +522,21 @@ export default function DashboardPage() {
               padding: 24,
               border: '1px solid #e5e7eb'
             }}>
-              <h2 style={{ 
+              <h3 style={{ 
                 fontSize: 16, 
                 fontWeight: 600, 
                 color: '#111827',
-                marginBottom: 20
+                marginBottom: 16
               }}>
                 Recent Activity
-              </h2>
+              </h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                {recentActivity.map((activity, i) => (
+                {[
+                  { type: 'lesson', title: 'Completed: Cultural Considerations', time: '2 hours ago' },
+                  { type: 'journal', title: 'Journal: Three Good Things', time: 'Yesterday' },
+                  { type: 'assessment', title: 'Assessment: Character Strengths', time: '3 days ago' },
+                ].map((activity, i) => (
                   <div key={i} style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -463,42 +560,6 @@ export default function DashboardPage() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* Assessments Card */}
-            <div style={{
-              background: 'linear-gradient(135deg, #14532d 0%, #166534 100%)',
-              borderRadius: 12,
-              padding: 24,
-              color: '#ffffff'
-            }}>
-              <h2 style={{ 
-                fontSize: 16, 
-                fontWeight: 600,
-                marginBottom: 8
-              }}>
-                Discover Your Strengths
-              </h2>
-              <p style={{ 
-                fontSize: 13, 
-                opacity: 0.9,
-                lineHeight: 1.6,
-                marginBottom: 20
-              }}>
-                Take the VIA Character Strengths assessment to uncover your unique qualities.
-              </p>
-              <Link href="/assessments/strengths" style={{
-                display: 'inline-block',
-                background: '#ffffff',
-                color: '#14532d',
-                padding: '10px 20px',
-                borderRadius: 6,
-                fontSize: 14,
-                fontWeight: 600,
-                textDecoration: 'none'
-              }}>
-                Start Assessment
-              </Link>
             </div>
           </div>
         </div>

@@ -58,7 +58,7 @@ export default function HomePage() {
       {/* Hero/Image Section */}
       <div style={{
         flex: isMobile ? 'none' : 1,
-        height: isMobile ? '280px' : 'auto',
+        height: isMobile ? '200px' : 'auto',
         position: 'relative',
         backgroundImage: 'url(https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&q=80)',
         backgroundSize: 'cover',
@@ -79,6 +79,8 @@ export default function HomePage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          alignItems: isMobile ? 'center' : 'flex-start',
+          textAlign: isMobile ? 'center' : 'left',
           padding: isMobile ? '40px 24px' : '60px 80px'
         }}>
           {!isMobile && (
@@ -96,14 +98,14 @@ export default function HomePage() {
           
           <h1 style={{
             color: '#ffffff',
-            fontSize: isMobile ? 28 : 42,
+            fontSize: isMobile ? 24 : 42,
             fontWeight: 400,
             lineHeight: 1.2,
-            marginBottom: isMobile ? 12 : 20,
+            marginBottom: isMobile ? 8 : 20,
             fontFamily: 'Georgia, serif'
           }}>
-            Foundations of{' '}
-            <span style={{ fontWeight: 600 }}>Positive Psychology</span>
+            The Science of{' '}
+            <span style={{ fontWeight: 600 }}>Human Flourishing</span>
           </h1>
           
           {!isMobile && (
@@ -115,7 +117,7 @@ export default function HomePage() {
                 maxWidth: 450,
                 marginBottom: 40
               }}>
-                Explore the science of human flourishing and discover evidence-based approaches to wellbeing.
+                Explore evidence-based approaches to wellbeing and discover your path to flourishing.
               </p>
 
               {/* Stats */}
@@ -152,15 +154,6 @@ export default function HomePage() {
               </div>
             </>
           )}
-
-          {isMobile && (
-            <p style={{
-              color: 'rgba(255,255,255,0.8)',
-              fontSize: 15
-            }}>
-              with Dr. Jolanta Burke
-            </p>
-          )}
         </div>
       </div>
 
@@ -175,22 +168,26 @@ export default function HomePage() {
         alignItems: 'center',
         padding: isMobile ? '40px 24px' : '60px'
       }}>
-        <div style={{ width: '100%', maxWidth: 360 }}>
-          {/* Header */}
-          <div style={{ marginBottom: 32 }}>
+        <div style={{ 
+          width: '100%', 
+          maxWidth: 340,
+          textAlign: 'center'
+        }}>
+          {/* Header - Centered */}
+          <div style={{ marginBottom: 36 }}>
             <h2 style={{
-              fontSize: isMobile ? 24 : 28,
+              fontSize: isMobile ? 26 : 32,
               color: '#14532d',
               fontWeight: 600,
-              marginBottom: 8
+              marginBottom: 10
             }}>
-              Welcome Back
+              Sign In
             </h2>
             <p style={{
               color: '#64748b',
               fontSize: 15
             }}>
-              Sign in to access your course
+              Access your course materials
             </p>
           </div>
 
@@ -202,14 +199,15 @@ export default function HomePage() {
               padding: '12px 16px',
               borderRadius: 8,
               marginBottom: 20,
-              fontSize: 14
+              fontSize: 14,
+              textAlign: 'left'
             }}>
               {error}
             </div>
           )}
 
           <form onSubmit={handleLogin}>
-            <div style={{ marginBottom: 18 }}>
+            <div style={{ marginBottom: 18, textAlign: 'left' }}>
               <label style={{
                 display: 'block',
                 color: '#374151',
@@ -238,7 +236,7 @@ export default function HomePage() {
               />
             </div>
 
-            <div style={{ marginBottom: 24 }}>
+            <div style={{ marginBottom: 28, textAlign: 'left' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
                 <label style={{
                   color: '#374151',
@@ -295,8 +293,7 @@ export default function HomePage() {
           </form>
 
           <div style={{
-            marginTop: 28,
-            textAlign: 'center'
+            marginTop: 28
           }}>
             <p style={{ color: '#64748b', fontSize: 14 }}>
               Need access?{' '}
@@ -349,11 +346,10 @@ export default function HomePage() {
 
           {/* Footer */}
           <div style={{
-            marginTop: isMobile ? 32 : 50,
-            textAlign: 'center'
+            marginTop: isMobile ? 32 : 50
           }}>
             <p style={{ color: '#94a3b8', fontSize: 12 }}>
-              {isMobile ? '© Dr. Jolanta Burke' : 'A course by Dr. Jolanta Burke'}
+              by Dr. Jolanta Burke
             </p>
           </div>
         </div>

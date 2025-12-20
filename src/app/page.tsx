@@ -1,467 +1,259 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function HomePage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Invalid email or password');
+        setLoading(false);
+        return;
+      }
+
+      router.push('/dashboard');
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+      setLoading(false);
+    }
+  };
+
   return (
-    <div style={{ minHeight: '100vh', background: '#f8faf8' }}>
-      {/* Hero Section with Background Image */}
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      backgroundImage: 'url(https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1920&q=80)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}>
+      {/* Left Side - Branding */}
       <div style={{
-        position: 'relative',
-        minHeight: '90vh',
+        flex: 1,
+        background: 'linear-gradient(135deg, rgba(20, 83, 45, 0.95) 0%, rgba(22, 101, 52, 0.9) 100%)',
         display: 'flex',
-        alignItems: 'center',
+        flexDirection: 'column',
         justifyContent: 'center',
-        backgroundImage: 'url(https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1920&q=80)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        padding: '60px 80px',
+        color: '#ffffff'
       }}>
-        {/* Dark Overlay */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(135deg, rgba(20, 83, 45, 0.92) 0%, rgba(22, 101, 52, 0.88) 100%)'
-        }} />
+        <h1 style={{
+          fontSize: 48,
+          fontWeight: 300,
+          marginBottom: 24,
+          lineHeight: 1.2,
+          fontFamily: 'Georgia, serif'
+        }}>
+          Foundations of<br />
+          <span style={{ fontWeight: 500 }}>Positive Psychology</span>
+        </h1>
+        <p style={{
+          fontSize: 20,
+          opacity: 0.9,
+          lineHeight: 1.8,
+          maxWidth: 500,
+          marginBottom: 40
+        }}>
+          Discover the science of human flourishing and transform your understanding of wellbeing.
+        </p>
         
-        {/* Hero Content */}
-        <div style={{
-          position: 'relative',
-          zIndex: 10,
-          textAlign: 'center',
-          color: '#ffffff',
-          padding: '40px',
-          maxWidth: 900
-        }}>
-          <h1 style={{ 
-            fontSize: 56, 
-            fontWeight: 300, 
-            marginBottom: 24,
-            lineHeight: 1.2,
-            fontFamily: 'Georgia, serif'
-          }}>
-            Foundations of<br />
-            <span style={{ fontWeight: 500 }}>Positive Psychology</span>
-          </h1>
-          <p style={{ 
-            fontSize: 22, 
-            opacity: 0.9, 
-            maxWidth: 600, 
-            margin: '0 auto 20px auto',
-            lineHeight: 1.7,
-            fontWeight: 300
-          }}>
-            Discover the science of human flourishing and transform your understanding of wellbeing
-          </p>
-          <p style={{ 
-            fontSize: 16, 
-            opacity: 0.7, 
-            marginBottom: 40
-          }}>
-            with Dr. Jolanta Burke
-          </p>
-          
-          <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/login" style={{
-              background: '#ffffff',
-              color: '#14532d',
-              padding: '18px 40px',
-              borderRadius: 4,
-              fontSize: 16,
-              fontWeight: 600,
-              textDecoration: 'none',
-              letterSpacing: 0.5
-            }}>
-              Sign In
-            </Link>
-            <Link href="/signup" style={{
-              background: 'transparent',
-              color: '#ffffff',
-              padding: '18px 40px',
-              borderRadius: 4,
-              fontSize: 16,
-              fontWeight: 500,
-              textDecoration: 'none',
-              border: '2px solid rgba(255,255,255,0.5)',
-              letterSpacing: 0.5
-            }}>
-              Request Access
-            </Link>
+        <div style={{ marginBottom: 50 }}>
+          <div style={{ display: 'flex', gap: 40 }}>
+            {[
+              { number: '5', label: 'Modules' },
+              { number: '35', label: 'Lessons' },
+              { number: '18.5', label: 'Hours' },
+            ].map((stat, i) => (
+              <div key={i}>
+                <p style={{ fontSize: 32, fontWeight: 300, marginBottom: 4 }}>{stat.number}</p>
+                <p style={{ fontSize: 13, opacity: 0.7, textTransform: 'uppercase', letterSpacing: 1 }}>{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
-        
-        {/* Scroll Indicator */}
-        <div style={{
-          position: 'absolute',
-          bottom: 40,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          color: 'rgba(255,255,255,0.6)',
-          fontSize: 14,
-          letterSpacing: 2
-        }}>
-          EXPLORE
-        </div>
-      </div>
 
-      {/* Features Section */}
-      <div style={{ padding: '100px 40px', background: '#ffffff' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 60 }}>
-            <p style={{ 
-              color: '#16a34a', 
-              fontSize: 13, 
-              letterSpacing: 3, 
-              textTransform: 'uppercase',
-              marginBottom: 16,
-              fontWeight: 600
-            }}>
-              Your Learning Experience
-            </p>
-            <h2 style={{ 
-              color: '#14532d', 
-              fontSize: 40, 
-              fontWeight: 300,
-              fontFamily: 'Georgia, serif'
-            }}>
-              Everything You Need to Flourish
-            </h2>
-          </div>
-          
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(4, 1fr)', 
-            gap: 30 
-          }}>
-            <Link href="/modules" style={{ textDecoration: 'none' }}>
-              <div style={{
-                position: 'relative',
-                height: 320,
-                borderRadius: 8,
-                overflow: 'hidden',
-                cursor: 'pointer'
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: 'url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  transition: 'transform 0.5s',
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(20, 83, 45, 0.95) 0%, rgba(20, 83, 45, 0.3) 100%)'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: 28,
-                  color: '#ffffff'
-                }}>
-                  <h3 style={{ fontSize: 22, marginBottom: 8, fontWeight: 500 }}>Course Modules</h3>
-                  <p style={{ fontSize: 14, opacity: 0.85, lineHeight: 1.6 }}>
-                    5 comprehensive modules on the science of wellbeing
-                  </p>
-                </div>
-              </div>
-            </Link>
-            
-            <Link href="/journal" style={{ textDecoration: 'none' }}>
-              <div style={{
-                position: 'relative',
-                height: 320,
-                borderRadius: 8,
-                overflow: 'hidden',
-                cursor: 'pointer'
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: 'url(https://images.unsplash.com/photo-1517842645767-c639042777db?w=600&q=80)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(20, 83, 45, 0.95) 0%, rgba(20, 83, 45, 0.3) 100%)'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: 28,
-                  color: '#ffffff'
-                }}>
-                  <h3 style={{ fontSize: 22, marginBottom: 8, fontWeight: 500 }}>Reflective Journal</h3>
-                  <p style={{ fontSize: 14, opacity: 0.85, lineHeight: 1.6 }}>
-                    Practice gratitude and track your growth
-                  </p>
-                </div>
-              </div>
-            </Link>
-            
-            <Link href="/assessments" style={{ textDecoration: 'none' }}>
-              <div style={{
-                position: 'relative',
-                height: 320,
-                borderRadius: 8,
-                overflow: 'hidden',
-                cursor: 'pointer'
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: 'url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(20, 83, 45, 0.95) 0%, rgba(20, 83, 45, 0.3) 100%)'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: 28,
-                  color: '#ffffff'
-                }}>
-                  <h3 style={{ fontSize: 22, marginBottom: 8, fontWeight: 500 }}>Assessments</h3>
-                  <p style={{ fontSize: 14, opacity: 0.85, lineHeight: 1.6 }}>
-                    Discover your strengths and measure wellbeing
-                  </p>
-                </div>
-              </div>
-            </Link>
-            
-            <Link href="/coach" style={{ textDecoration: 'none' }}>
-              <div style={{
-                position: 'relative',
-                height: 320,
-                borderRadius: 8,
-                overflow: 'hidden',
-                cursor: 'pointer'
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: 'url(https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(20, 83, 45, 0.95) 0%, rgba(20, 83, 45, 0.3) 100%)'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: 28,
-                  color: '#ffffff'
-                }}>
-                  <h3 style={{ fontSize: 22, marginBottom: 8, fontWeight: 500 }}>AI Coach</h3>
-                  <p style={{ fontSize: 14, opacity: 0.85, lineHeight: 1.6 }}>
-                    Get personalized guidance on your journey
-                  </p>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* About Section */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: '1fr 1fr',
-        minHeight: 500
-      }}>
-        <div style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=900&q=80)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }} />
-        <div style={{
-          background: '#14532d',
-          padding: '80px 60px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          color: '#ffffff'
-        }}>
-          <p style={{ 
-            color: '#86efac', 
-            fontSize: 13, 
-            letterSpacing: 3, 
-            textTransform: 'uppercase',
-            marginBottom: 20,
-            fontWeight: 600
-          }}>
-            About This Course
-          </p>
-          <h2 style={{ 
-            fontSize: 36, 
-            fontWeight: 300, 
-            marginBottom: 24,
-            lineHeight: 1.3,
-            fontFamily: 'Georgia, serif'
-          }}>
-            The Science of Living Well
-          </h2>
-          <p style={{ 
-            fontSize: 17, 
-            lineHeight: 1.8, 
-            opacity: 0.9,
-            marginBottom: 30
-          }}>
-            This comprehensive course takes you on a journey through the foundations of positive 
-            psychology—from its origins with Seligman and Csikszentmihalyi to cutting-edge 
-            applications in health, education, and the workplace. You'll explore evidence-based 
-            interventions, discover your character strengths, and learn to apply the science 
-            of flourishing in your own life.
-          </p>
-          <Link href="/signup" style={{
-            color: '#86efac',
-            fontSize: 16,
-            fontWeight: 500,
-            textDecoration: 'none',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8
-          }}>
-            Request Access to Begin →
-          </Link>
-        </div>
-      </div>
-
-      {/* Stats Section */}
-      <div style={{ padding: '80px 40px', background: '#ffffff' }}>
         <div style={{ 
-          maxWidth: 1000, 
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 40,
-          textAlign: 'center'
+          borderTop: '1px solid rgba(255,255,255,0.2)', 
+          paddingTop: 40 
         }}>
-          {[
-            { number: '5', label: 'Modules' },
-            { number: '35', label: 'Lessons' },
-            { number: '18.5', label: 'Hours of Content' },
-            { number: '200+', label: 'Research Studies' },
-          ].map((stat, i) => (
-            <div key={i}>
-              <p style={{ 
-                fontSize: 48, 
-                fontWeight: 300, 
-                color: '#14532d',
-                marginBottom: 8,
-                fontFamily: 'Georgia, serif'
-              }}>
-                {stat.number}
-              </p>
-              <p style={{ 
-                color: '#64748b', 
-                fontSize: 14, 
-                textTransform: 'uppercase',
-                letterSpacing: 2
-              }}>
-                {stat.label}
-              </p>
-            </div>
-          ))}
+          <p style={{ fontSize: 14, opacity: 0.7, marginBottom: 8 }}>Created by</p>
+          <p style={{ fontSize: 20, fontWeight: 500 }}>Dr. Jolanta Burke</p>
         </div>
       </div>
 
-      {/* CTA Section */}
+      {/* Right Side - Login Form */}
       <div style={{
-        position: 'relative',
-        padding: '120px 40px',
-        backgroundImage: 'url(https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1920&q=80)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        width: 520,
+        background: '#ffffff',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '60px 80px'
       }}>
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'rgba(20, 83, 45, 0.9)'
-        }} />
-        <div style={{
-          position: 'relative',
-          zIndex: 10,
-          maxWidth: 700,
-          margin: '0 auto',
-          textAlign: 'center',
-          color: '#ffffff'
+        <h2 style={{
+          fontSize: 30,
+          color: '#14532d',
+          marginBottom: 8,
+          fontWeight: 500,
+          fontFamily: 'Georgia, serif'
         }}>
-          <h2 style={{ 
-            fontSize: 40, 
-            fontWeight: 300, 
+          Welcome
+        </h2>
+        <p style={{
+          color: '#64748b',
+          marginBottom: 40,
+          fontSize: 16,
+          lineHeight: 1.6
+        }}>
+          Sign in to access your course materials
+        </p>
+
+        {error && (
+          <div style={{
+            background: '#fef2f2',
+            border: '1px solid #fecaca',
+            color: '#dc2626',
+            padding: '14px 18px',
+            borderRadius: 8,
             marginBottom: 24,
-            fontFamily: 'Georgia, serif'
+            fontSize: 14
           }}>
-            Ready to Begin?
-          </h2>
-          <p style={{ 
-            fontSize: 18, 
-            opacity: 0.9, 
-            marginBottom: 40,
-            lineHeight: 1.7
-          }}>
-            Start your journey into the science of human flourishing today
-          </p>
-          <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/login" style={{
-              background: '#ffffff',
-              color: '#14532d',
-              padding: '20px 50px',
-              borderRadius: 4,
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleLogin}>
+          <div style={{ marginBottom: 24 }}>
+            <label style={{
+              display: 'block',
+              color: '#374151',
+              fontSize: 14,
+              fontWeight: 500,
+              marginBottom: 8
+            }}>
+              Email Address
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="you@example.com"
+              style={{
+                width: '100%',
+                padding: '16px 18px',
+                borderRadius: 8,
+                border: '1px solid #d1d5db',
+                fontSize: 16,
+                outline: 'none',
+                transition: 'border-color 0.2s'
+              }}
+            />
+          </div>
+
+          <div style={{ marginBottom: 32 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+              <label style={{
+                color: '#374151',
+                fontSize: 14,
+                fontWeight: 500
+              }}>
+                Password
+              </label>
+              <Link href="/forgot-password" style={{
+                color: '#16a34a',
+                fontSize: 14,
+                textDecoration: 'none'
+              }}>
+                Forgot password?
+              </Link>
+            </div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="••••••••"
+              style={{
+                width: '100%',
+                padding: '16px 18px',
+                borderRadius: 8,
+                border: '1px solid #d1d5db',
+                fontSize: 16,
+                outline: 'none'
+              }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '18px',
+              background: loading ? '#86efac' : '#14532d',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: 8,
               fontSize: 16,
               fontWeight: 600,
-              textDecoration: 'none',
-              display: 'inline-block',
-              letterSpacing: 0.5
-            }}>
-              Sign In
-            </Link>
+              cursor: loading ? 'not-allowed' : 'pointer',
+              marginBottom: 24,
+              transition: 'background 0.2s'
+            }}
+          >
+            {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+        </form>
+
+        <div style={{
+          textAlign: 'center',
+          paddingTop: 24,
+          borderTop: '1px solid #e5e7eb'
+        }}>
+          <p style={{ color: '#64748b', fontSize: 15 }}>
+            Don't have access?{' '}
             <Link href="/signup" style={{
-              background: 'transparent',
-              color: '#ffffff',
-              padding: '20px 50px',
-              borderRadius: 4,
-              fontSize: 16,
-              fontWeight: 500,
-              textDecoration: 'none',
-              border: '2px solid rgba(255,255,255,0.5)',
-              letterSpacing: 0.5
+              color: '#16a34a',
+              fontWeight: 600,
+              textDecoration: 'none'
             }}>
               Request Access
             </Link>
-          </div>
+          </p>
         </div>
-      </div>
 
-      {/* Footer */}
-      <div style={{ 
-        padding: '50px 40px', 
-        background: '#0a2818', 
-        textAlign: 'center',
-        color: 'rgba(255,255,255,0.5)',
-        fontSize: 14
-      }}>
-        <p style={{ marginBottom: 8 }}>Foundations of Positive Psychology</p>
-        <p>Created by Dr. Jolanta Burke</p>
+        <div style={{
+          marginTop: 40,
+          padding: 20,
+          background: '#f8faf8',
+          borderRadius: 8,
+          border: '1px solid #e2e8f0'
+        }}>
+          <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.6, textAlign: 'center' }}>
+            Access is granted through course purchase or institutional subscription. 
+            Contact us for group licensing options.
+          </p>
+        </div>
       </div>
     </div>
   );

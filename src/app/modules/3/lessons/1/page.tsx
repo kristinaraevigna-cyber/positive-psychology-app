@@ -3,8 +3,71 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function Lesson1Page() {
-  const [isCompleted, setIsCompleted] = useState(false);
+export default function Module4Page() {
+  const [completedLessons] = useState<number[]>([]);
+
+  const lessons = [
+    {
+      id: 1,
+      title: 'Wellbeing Online',
+      duration: '28 min',
+      description: 'Learn how to design and deliver effective online positive psychology interventions with attention to user engagement, dosage, and choice.',
+      topics: ['Online PPIs', 'User Engagement', 'Dosage', 'User Choice'],
+      unlocked: true
+    },
+    {
+      id: 2,
+      title: 'Person-Activity Fit',
+      duration: '32 min',
+      description: 'Understand why certain interventions work for some people but not others, and how to match activities to individual needs.',
+      topics: ['Activity Features', 'Person Features', 'Motivation', 'Baseline Affect'],
+      unlocked: true
+    },
+    {
+      id: 3,
+      title: 'Mechanisms of Change',
+      duration: '30 min',
+      description: 'Explore the underlying mechanisms that make positive psychology interventions effective, including the five domains framework.',
+      topics: ['Five Domains', 'Sustained Emotions', 'The Will & The Way', 'Adaptive Mechanisms'],
+      unlocked: true
+    },
+    {
+      id: 4,
+      title: 'The Dark Side of Happiness',
+      duration: '28 min',
+      description: 'Examine the potential downsides of pursuing happiness and learn to approach wellbeing with nuance and balance.',
+      topics: ['Optimal Happiness', 'Timing Matters', 'Wrong Pursuit', 'Wrong Types'],
+      unlocked: true
+    },
+    {
+      id: 5,
+      title: 'Synergistic Change Model',
+      duration: '30 min',
+      description: 'Discover how changes in one life domain can trigger cascading effects across other domains for lasting transformation.',
+      topics: ['Five Domains', 'Relapse', 'Spill-over', 'Synergy'],
+      unlocked: true
+    },
+    {
+      id: 6,
+      title: 'Self-Determination Theory',
+      duration: '32 min',
+      description: 'Master the science of intrinsic motivation and learn how autonomy, competence, and relatedness drive lasting change.',
+      topics: ['Intrinsic Motivation', 'Autonomy', 'Competence', 'Relatedness'],
+      unlocked: true
+    },
+    {
+      id: 7,
+      title: 'Models for Lasting Change',
+      duration: '28 min',
+      description: 'Learn the transtheoretical model of change and meta-theories for designing effective positive psychology interventions.',
+      topics: ['Stages of Change', 'Ego Depletion', 'Meta Theory', 'Sustainable Practice'],
+      unlocked: true
+    }
+  ];
+
+  const completedCount = completedLessons.length;
+  const totalLessons = lessons.length;
+  const progressPercent = Math.round((completedCount / totalLessons) * 100);
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8faf9' }}>
@@ -19,165 +82,97 @@ export default function Lesson1Page() {
             </div>
           </Link>
           <div style={{ display: 'flex', gap: 8 }}>
-            {['Dashboard', 'Modules', 'Journal', 'Assessments', 'AI Coach'].map((item) => (
-              <Link key={item} href={`/${item.toLowerCase().replace(' ', '')}`} style={{ color: item === 'Modules' ? '#ffffff' : 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: 14, fontWeight: 500, padding: '8px 16px', borderRadius: 8, background: item === 'Modules' ? 'rgba(255,255,255,0.15)' : 'transparent' }}>{item}</Link>
+            {[{ href: '/dashboard', label: 'Dashboard' }, { href: '/modules', label: 'Modules', active: true }, { href: '/journal', label: 'Journal' }, { href: '/assessments', label: 'Assessments' }, { href: '/coach', label: 'AI Coach' }].map((item) => (
+              <Link key={item.href} href={item.href} style={{ color: item.active ? '#ffffff' : 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: 14, fontWeight: 500, padding: '8px 16px', borderRadius: 8, background: item.active ? 'rgba(255,255,255,0.15)' : 'transparent' }}>{item.label}</Link>
             ))}
           </div>
           <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: 14, fontWeight: 600 }}>JB</div>
         </div>
       </nav>
 
-      <div style={{ background: '#ffffff', borderBottom: '1px solid #e5e7eb', padding: '16px 40px' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#64748b' }}>
-            <Link href="/modules" style={{ color: '#64748b', textDecoration: 'none' }}>Modules</Link><span>/</span>
-            <Link href="/modules/3" style={{ color: '#64748b', textDecoration: 'none' }}>Interventions & Applications</Link><span>/</span>
-            <span style={{ color: '#14532d', fontWeight: 500 }}>Lesson 1</span>
+      <div style={{ background: 'linear-gradient(135deg, #14532d 0%, #166534 100%)', padding: '60px 40px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', opacity: 0.1, backgroundImage: 'url(https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 10 }}>
+          <div style={{ marginBottom: 24 }}>
+            <Link href="/modules" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Back to Modules
+            </Link>
+          </div>
+          <div style={{ display: 'inline-block', background: 'rgba(255,255,255,0.15)', padding: '8px 16px', borderRadius: 20, fontSize: 13, fontWeight: 600, color: '#86efac', marginBottom: 20, letterSpacing: 1, textTransform: 'uppercase' }}>Module 4 of 5</div>
+          <h1 style={{ fontSize: 48, fontWeight: 600, color: '#ffffff', marginBottom: 16, fontFamily: 'Georgia, serif' }}>Maximising Impact</h1>
+          <p style={{ fontSize: 20, color: 'rgba(255,255,255,0.85)', marginBottom: 32, maxWidth: 600 }}>Mechanisms, Models & Sustainable Change</p>
+          <div style={{ display: 'flex', gap: 40 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span style={{ color: '#ffffff', fontSize: 15 }}>7 Lessons</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span style={{ color: '#ffffff', fontSize: 15 }}>3.5 Hours</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style={{ color: '#ffffff', fontSize: 15 }}>{progressPercent}% Complete</span></div>
           </div>
         </div>
       </div>
 
-      <div style={{ maxWidth: 900, margin: '0 auto', padding: '40px 20px' }}>
-        <div style={{ marginBottom: 32 }}>
-          <div style={{ display: 'inline-block', background: '#f0fdf4', color: '#166534', padding: '6px 12px', borderRadius: 20, fontSize: 13, fontWeight: 600, marginBottom: 16 }}>Lesson 1 of 7</div>
-          <h1 style={{ fontSize: 36, color: '#111827', fontWeight: 600, marginBottom: 12, fontFamily: 'Georgia, serif' }}>Wellbeing Without Interventions</h1>
-          <p style={{ color: '#64748b', fontSize: 16 }}>Natural factors that influence happiness before we even try</p>
-        </div>
-
-        <div style={{ background: '#1a1a2e', borderRadius: 16, aspectRatio: '16/9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: 40 }}>
-          <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 15 }}>Video coming soon</p>
-        </div>
-
-        <div style={{ background: '#ffffff', borderRadius: 16, padding: 48, border: '1px solid #e5e7eb', marginBottom: 32 }}>
-          
-          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, fontFamily: 'Georgia, serif' }}>The Spread of Happiness</h2>
-
-          {/* Jolanta's Story - Skittles */}
-          <div style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%)', borderRadius: 12, padding: 32, marginBottom: 32, borderLeft: '4px solid #22c55e' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#14532d', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: 14, fontWeight: 600 }}>JB</div>
-              <div>
-                <p style={{ fontWeight: 600, color: '#14532d', fontSize: 15 }}>Dr. Jolanta Burke</p>
-                <p style={{ color: '#64748b', fontSize: 13 }}>The Skittles Experiment</p>
-              </div>
-            </div>
-            <p style={{ color: '#166534', fontSize: 17, lineHeight: 1.8, fontStyle: 'italic' }}>
-              "My son loves science. He loves putting on his white coat and goggles, pulling out his gigantic 
-              test tubes and dropper pipettes, and spending hours mixing up colours and other potions. Recently, 
-              we played with a simpler activity that gave him a lot of joy. We put Skittles on a plate in a 
-              circle, gently poured hot water onto the plate, and saw a rainbow of colours appear. The colours 
-              stood like stripes on their own, and in some places, they mixed up. They reminded me of happiness 
-              and how proximity to happy people can influence our subjective wellbeing."
-            </p>
-          </div>
-
-          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
-            Research drawing from a longitudinal study with almost 5,000 participants spanning over 20 years 
-            showed that <strong>happiness extends to three degrees of separation</strong>. Our happiness impacts 
-            not only our direct friends but also their friends, and our friends' friends' friends.
-          </p>
-
-          {/* Happiness Contagion Stats */}
-          <div style={{ background: '#f8fafc', borderRadius: 12, padding: 28, margin: '32px 0' }}>
-            <h3 style={{ fontSize: 18, fontWeight: 600, color: '#111827', marginBottom: 20 }}>The Happiness Ripple Effect</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-              {[
-                { percent: '25%', label: 'Direct friends within 1 mile' },
-                { percent: '63%', label: 'Mutual friends who live nearby' },
-                { percent: '34%', label: 'Next-door neighbours' }
-              ].map((item, i) => (
-                <div key={i} style={{ textAlign: 'center', padding: 20, background: '#ffffff', borderRadius: 8, border: '1px solid #e2e8f0' }}>
-                  <p style={{ fontSize: 32, fontWeight: 600, color: '#14532d', marginBottom: 8 }}>{item.percent}</p>
-                  <p style={{ fontSize: 13, color: '#64748b' }}>more likely to be happier when {item.label} become happier</p>
-                </div>
-              ))}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 48 }}>
+          <div>
+            <h2 style={{ fontSize: 24, fontWeight: 600, color: '#111827', marginBottom: 24, fontFamily: 'Georgia, serif' }}>Lessons</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {lessons.map((lesson, index) => {
+                const isCompleted = completedLessons.includes(lesson.id);
+                return (
+                  <Link key={lesson.id} href={`/modules/4/lessons/${lesson.id}`} style={{ textDecoration: 'none' }}>
+                    <div style={{ background: '#ffffff', borderRadius: 12, padding: 28, border: '1px solid #e5e7eb', position: 'relative' }}>
+                      <div style={{ display: 'flex', gap: 20 }}>
+                        <div style={{ width: 48, height: 48, borderRadius: '50%', background: isCompleted ? '#22c55e' : '#f0fdf4', border: isCompleted ? 'none' : '2px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          {isCompleted ? <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg> : <span style={{ color: '#14532d', fontSize: 18, fontWeight: 600 }}>{lesson.id}</span>}
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <h3 style={{ fontSize: 18, fontWeight: 600, color: '#111827', marginBottom: 8, fontFamily: 'Georgia, serif' }}>{lesson.title}</h3>
+                          <p style={{ fontSize: 13, color: '#64748b', marginBottom: 12 }}>{lesson.duration}</p>
+                          <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.7, marginBottom: 16 }}>{lesson.description}</p>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                            {lesson.topics.map((topic, i) => (<span key={i} style={{ background: '#f0fdf4', color: '#166534', padding: '6px 12px', borderRadius: 20, fontSize: 12, fontWeight: 500 }}>{topic}</span>))}
+                          </div>
+                        </div>
+                      </div>
+                      {index < lessons.length - 1 && <div style={{ position: 'absolute', left: 51, bottom: -16, width: 2, height: 16, background: '#e5e7eb' }} />}
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
-          <div style={{ background: '#f8fafc', borderRadius: 12, padding: 32, margin: '32px 0', borderLeft: '4px solid #14532d' }}>
-            <p style={{ fontSize: 18, color: '#14532d', lineHeight: 1.8, fontStyle: 'italic', margin: 0 }}>
-              "Happiness blooms in proximity; as one heart lifts, many more take flight."
-            </p>
-          </div>
-
-          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, marginTop: 48, fontFamily: 'Georgia, serif' }}>Money and Happiness</h2>
-
-          {/* Jolanta's Story - Parents and Money */}
-          <div style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%)', borderRadius: 12, padding: 32, marginBottom: 32, borderLeft: '4px solid #22c55e' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#14532d', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: 14, fontWeight: 600 }}>JB</div>
-              <div>
-                <p style={{ fontWeight: 600, color: '#14532d', fontSize: 15 }}>Dr. Jolanta Burke</p>
-                <p style={{ color: '#64748b', fontSize: 13 }}>On Parents' Opposing Views</p>
-              </div>
-            </div>
-            <p style={{ color: '#166534', fontSize: 17, lineHeight: 1.8, fontStyle: 'italic' }}>
-              "My mum and dad have always had opposing views about money. My dad claimed that having money 
-              made him happier as it allowed him to do things he wouldn't be able to do otherwise. My mum, 
-              however, said money had nothing to do with happiness. Instead, she kept talking about love 
-              and education being the most important values and how nothing else matters as long as we have 
-              people we love and can continuously develop ourselves."
-            </p>
-          </div>
-
-          <p style={{ fontSize: 17, color: '#374151', lineHeight: 1.9, marginBottom: 24 }}>
-            <strong>Ed Diener and Robert Biswas-Diener</strong> argue that while money can enhance wellbeing 
-            to some extent, its impact is nuanced. Money plays an essential role in satisfying basic needs. 
-            Beyond that, additional income yields diminishing results.
-          </p>
-
-          {/* Amsterdam Conference Story */}
-          <div style={{ background: 'linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%)', borderRadius: 12, padding: 32, marginBottom: 32, borderLeft: '4px solid #f59e0b' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#92400e', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: 14, fontWeight: 600 }}>JB</div>
-              <div>
-                <p style={{ fontWeight: 600, color: '#92400e', fontSize: 15 }}>Dr. Jolanta Burke</p>
-                <p style={{ color: '#78716c', fontSize: 13 }}>World Happiness Report in Amsterdam</p>
-              </div>
-            </div>
-            <p style={{ color: '#78350f', fontSize: 17, lineHeight: 1.8, fontStyle: 'italic' }}>
-              "At the European Conference on Positive Psychology in Amsterdam, John Halliwell told us that 
-              those in the top 1% of earners were happier than others. I remember wondering what being in the 
-              1% would be like. Then, Halliwell asked us to put up our hands if we earned more than 30,000 euros 
-              a year. Most people in the room put their hands up. In response he told us that we were the 1%. 
-              The room fell silent, and the presentation left me with goosebumps."
-            </p>
-          </div>
-
-          <h2 style={{ fontSize: 20, color: '#111827', fontWeight: 600, marginBottom: 16, marginTop: 40 }}>Key References</h2>
-          <div style={{ background: '#f8fafc', borderRadius: 8, padding: 20, fontSize: 14, color: '#64748b', lineHeight: 1.8 }}>
-            <p style={{ marginBottom: 12 }}>Fowler, J. H., & Christakis, N. A. (2008). Dynamic spread of happiness in a large social network. <em>BMJ, 337</em>, a2338.</p>
-            <p>Diener, E., & Biswas-Diener, R. (2002). Will money increase subjective well-being? <em>Social Indicators Research, 57</em>(2), 119-169.</p>
-          </div>
-        </div>
-
-        <div style={{ background: '#ffffff', borderRadius: 16, padding: 48, border: '1px solid #e5e7eb', marginBottom: 32 }}>
-          <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, fontFamily: 'Georgia, serif' }}>Reflection Questions</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {['Who in your immediate network tends to lift your mood? How might you spend more time with them?', 'Have you noticed how the happiness of people around you affects your own wellbeing?', 'What does the research on money and happiness mean for your own pursuit of wellbeing?'].map((q, i) => (
-              <div key={i} style={{ background: '#f8fafc', borderRadius: 12, padding: 20, border: '1px solid #e2e8f0' }}>
-                <div style={{ display: 'flex', gap: 12 }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#e0f2fe', color: '#0369a1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 600, flexShrink: 0 }}>{i + 1}</div>
-                  <p style={{ fontSize: 16, color: '#374151', lineHeight: 1.6 }}>{q}</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <div style={{ background: '#ffffff', borderRadius: 12, padding: 28, border: '1px solid #e5e7eb' }}>
+              <h3 style={{ fontSize: 18, fontWeight: 600, color: '#111827', marginBottom: 24 }}>Your Progress</h3>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+                <div style={{ position: 'relative', width: 140, height: 140 }}>
+                  <svg width="140" height="140" viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#e5e7eb" strokeWidth="10" /><circle cx="70" cy="70" r="60" fill="none" stroke="#22c55e" strokeWidth="10" strokeLinecap="round" strokeDasharray={`${progressPercent * 3.77} 377`} transform="rotate(-90 70 70)" /></svg>
+                  <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center' }}><p style={{ fontSize: 36, fontWeight: 600, color: '#14532d' }}>{progressPercent}%</p><p style={{ fontSize: 13, color: '#64748b' }}>Complete</p></div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 0', borderTop: '1px solid #e5e7eb' }}><span style={{ color: '#64748b', fontSize: 14 }}>Lessons</span><span style={{ color: '#111827', fontSize: 14, fontWeight: 600 }}>{completedCount} / {totalLessons}</span></div>
+            </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 0' }}>
-          <Link href="/modules/3" style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to Module
-          </Link>
-          <button onClick={() => setIsCompleted(!isCompleted)} style={{ background: isCompleted ? '#22c55e' : '#14532d', color: '#ffffff', border: 'none', padding: '14px 28px', borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
-            {isCompleted ? <><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>Completed</> : 'Mark as Complete'}
-          </button>
-          <Link href="/modules/3/lessons/2" style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#14532d', textDecoration: 'none', fontSize: 15, fontWeight: 600 }}>
-            Next Lesson<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </Link>
+            <div style={{ background: '#ffffff', borderRadius: 12, padding: 28, border: '1px solid #e5e7eb' }}>
+              <h3 style={{ fontSize: 18, fontWeight: 600, color: '#111827', marginBottom: 16 }}>About This Module</h3>
+              <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.7, marginBottom: 20 }}>Go beyond learning interventions to understanding WHY they work. Master the science of sustainable change and learn to tailor practices for maximum personal impact.</p>
+              <h4 style={{ fontSize: 14, fontWeight: 600, color: '#111827', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>Key Theories</h4>
+              <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7 }}>
+                <p style={{ marginBottom: 8 }}>Person-Activity Fit (Lyubomirsky)</p>
+                <p style={{ marginBottom: 8 }}>Self-Determination Theory (Deci & Ryan)</p>
+                <p style={{ marginBottom: 8 }}>Synergistic Change Model (Rusk)</p>
+                <p style={{ marginBottom: 8 }}>Dark Side of Happiness (Mauss)</p>
+                <p>Transtheoretical Model (Prochaska)</p>
+              </div>
+            </div>
+
+            <Link href="/modules/4/lessons/1" style={{ textDecoration: 'none' }}>
+              <button style={{ width: '100%', padding: '16px 24px', background: '#14532d', color: '#ffffff', border: 'none', borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+                {completedCount === 0 ? 'Start Module' : 'Continue Learning'}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -133,7 +133,7 @@ export default function Lesson1Page() {
           background: '#000'
         }}>
           <iframe
-            src="https://www.youtube.com/embed/FrI3uusjeFk"
+            src="https://youtube.com/shorts/QN_9Au47QkQ"
             title="Dr. Jolanta Burke - Birth of Positive Psychology"
             style={{
               position: 'absolute',

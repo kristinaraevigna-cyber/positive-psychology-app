@@ -139,7 +139,7 @@ export default function Lesson4Page() {
         <div style={{ background: '#ffffff', borderRadius: 16, padding: 48, border: '1px solid #e5e7eb', marginBottom: 32 }}>
           <h2 style={{ fontSize: 24, color: '#111827', fontWeight: 600, marginBottom: 20, fontFamily: 'Georgia, serif' }}>Reflection Questions</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {['Have you ever experienced the downsides of pursuing happiness too intensely?', 'Are there times when you've felt pressure to be happy when other emotions would have been more appropriate?', 'How can you pursue wellbeing while avoiding the "dark side" pitfalls?'].map((q, i) => (
+            {['Have you ever experienced the downsides of pursuing happiness too intensely?', 'Are there times when you have felt pressure to be happy when other emotions would have been more appropriate?', 'How can you pursue wellbeing while avoiding the "dark side" pitfalls?'].map((q, i) => (
               <div key={i} style={{ background: '#f8fafc', borderRadius: 12, padding: 20, border: '1px solid #e2e8f0' }}>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#e0f2fe', color: '#0369a1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 600, flexShrink: 0 }}>{i + 1}</div>

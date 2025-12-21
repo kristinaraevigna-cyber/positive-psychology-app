@@ -3,63 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function Module1Page() {
-  const [completedLessons] = useState<number[]>([]);
-
-  const lessons = [
-    {
-      id: 1,
-      title: 'The Birth of Positive Psychology',
-      duration: '25 min',
-      description: 'Discover how a chance meeting in Hawaii between Seligman and Csikszentmihalyi sparked a revolution in psychology and led to the 2000 manifesto.',
-      topics: ['The Hawaii Meeting', 'The 2000 Manifesto', 'Three Pillars of PP', 'Seligman\'s APA Address'],
-      unlocked: true
-    },
-    {
-      id: 2,
-      title: 'Evolution of the Field',
-      duration: '30 min',
-      description: 'Trace the development from First Wave positive psychology through the dialectical Second Wave to the systems-focused Third Wave.',
-      topics: ['PP 2.0: Paul Wong', 'Second Wave: Dialectics', 'Third Wave: Complexity', 'Systems Thinking'],
-      unlocked: true
-    },
-    {
-      id: 3,
-      title: 'Critical Perspectives',
-      duration: '28 min',
-      description: 'Understand the important critiques that have shaped and strengthened the field, from Lazarus to Held.',
-      topics: ['Walk Before You Run', 'Tyranny of Positivity', 'Toxic Positivity', 'Research Limitations'],
-      unlocked: true
-    },
-    {
-      id: 4,
-      title: 'Cultural Considerations',
-      duration: '25 min',
-      description: 'Explore how culture shapes our understanding of wellbeing and why we must move beyond WEIRD populations.',
-      topics: ['The WEIRD Problem', 'Individualism vs Collectivism', 'Ethnocentrism', 'Cultural Adaptation'],
-      unlocked: true
-    },
-    {
-      id: 5,
-      title: 'Big Issues in Positive Psychology',
-      duration: '30 min',
-      description: 'Examine how positive psychology addresses major global challenges including climate, bullying, refugees, and LGBTQ+ wellbeing.',
-      topics: ['Climate & Eco-Wellbeing', 'Bullying Prevention', 'Refugee Wellbeing', 'LGBTQ+ Flourishing'],
-      unlocked: true
-    },
-    {
-      id: 6,
-      title: 'Research Methods & Ethics',
-      duration: '25 min',
-      description: 'Learn about the science behind positive psychology, ethical guidelines, and frameworks for evaluating interventions.',
-      topics: ['Ethics in Practice', 'Research Methods', 'The RE-AIM Framework', 'Evidence Standards'],
-      unlocked: true
-    }
-  ];
-
-  const completedCount = completedLessons.length;
-  const totalLessons = lessons.length;
-  const progressPercent = Math.round((completedCount / totalLessons) * 100);
+export default function Lesson1Page() {
+  const [isCompleted, setIsCompleted] = useState(false);
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8faf9' }}>
@@ -130,399 +75,499 @@ export default function Module1Page() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div style={{
-        background: 'linear-gradient(135deg, #14532d 0%, #166534 100%)',
-        padding: '60px 40px',
-        position: 'relative',
-        overflow: 'hidden'
+      {/* Breadcrumb */}
+      <div style={{ 
+        background: '#ffffff', 
+        borderBottom: '1px solid #e5e7eb',
+        padding: '16px 40px'
       }}>
-        {/* Background Pattern */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: '50%',
-          height: '100%',
-          opacity: 0.1,
-          backgroundImage: 'url(https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }} />
-
-        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-          {/* Breadcrumb */}
-          <div style={{ marginBottom: 24 }}>
-            <Link href="/modules" style={{ 
-              color: 'rgba(255,255,255,0.7)', 
-              textDecoration: 'none',
-              fontSize: 14,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8
-            }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              Back to Modules
-            </Link>
-          </div>
-
-          {/* Module Badge */}
-          <div style={{
-            display: 'inline-block',
-            background: 'rgba(255,255,255,0.15)',
-            padding: '8px 16px',
-            borderRadius: 20,
-            fontSize: 13,
-            fontWeight: 600,
-            color: '#86efac',
-            marginBottom: 20,
-            letterSpacing: 1,
-            textTransform: 'uppercase'
-          }}>
-            Module 1 of 5
-          </div>
-
-          {/* Title */}
-          <h1 style={{
-            fontSize: 48,
-            fontWeight: 600,
-            color: '#ffffff',
-            marginBottom: 16,
-            fontFamily: 'Georgia, serif'
-          }}>
-            The Fundamentals
-          </h1>
-
-          <p style={{
-            fontSize: 20,
-            color: 'rgba(255,255,255,0.85)',
-            marginBottom: 32,
-            maxWidth: 600
-          }}>
-            Origins, Evolution & Critical Perspectives
-          </p>
-
-          {/* Stats */}
-          <div style={{ display: 'flex', gap: 40 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-              </svg>
-              <span style={{ color: '#ffffff', fontSize: 15 }}>6 Lessons</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-              </svg>
-              <span style={{ color: '#ffffff', fontSize: 15 }}>2.5 Hours</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              <span style={{ color: '#ffffff', fontSize: 15 }}>{progressPercent}% Complete</span>
-            </div>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#64748b' }}>
+            <Link href="/modules" style={{ color: '#64748b', textDecoration: 'none' }}>Modules</Link>
+            <span>/</span>
+            <Link href="/modules/1" style={{ color: '#64748b', textDecoration: 'none' }}>The Fundamentals</Link>
+            <span>/</span>
+            <span style={{ color: '#14532d', fontWeight: 500 }}>Lesson 1</span>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 48 }}>
-          
-          {/* Lessons List */}
-          <div>
-            <h2 style={{ 
-              fontSize: 24, 
-              fontWeight: 600, 
-              color: '#111827',
-              marginBottom: 24,
-              fontFamily: 'Georgia, serif'
-            }}>
-              Lessons
-            </h2>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {lessons.map((lesson, index) => {
-                const isCompleted = completedLessons.includes(lesson.id);
-                
-                return (
-                  <Link 
-                    key={lesson.id} 
-                    href={lesson.unlocked ? `/modules/1/lessons/${lesson.id}` : '#'}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <div style={{
-                      background: '#ffffff',
-                      borderRadius: 12,
-                      padding: 28,
-                      border: '1px solid #e5e7eb',
-                      opacity: lesson.unlocked ? 1 : 0.6,
-                      cursor: lesson.unlocked ? 'pointer' : 'not-allowed',
-                      transition: 'all 0.2s',
-                      position: 'relative'
-                    }}>
-                      {/* Lesson Number & Content */}
-                      <div style={{ display: 'flex', gap: 20 }}>
-                        {/* Number Circle */}
-                        <div style={{
-                          width: 48,
-                          height: 48,
-                          borderRadius: '50%',
-                          background: isCompleted ? '#22c55e' : lesson.unlocked ? '#f0fdf4' : '#f3f4f6',
-                          border: isCompleted ? 'none' : '2px solid #e5e7eb',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0
-                        }}>
-                          {isCompleted ? (
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
-                              <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                          ) : (
-                            <span style={{ 
-                              color: lesson.unlocked ? '#14532d' : '#9ca3af',
-                              fontSize: 18,
-                              fontWeight: 600
-                            }}>
-                              {lesson.id}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Content */}
-                        <div style={{ flex: 1 }}>
-                          <div style={{ 
-                            display: 'flex', 
-                            justifyContent: 'space-between', 
-                            alignItems: 'flex-start',
-                            marginBottom: 8
-                          }}>
-                            <h3 style={{ 
-                              fontSize: 18, 
-                              fontWeight: 600, 
-                              color: lesson.unlocked ? '#111827' : '#9ca3af',
-                              fontFamily: 'Georgia, serif'
-                            }}>
-                              {lesson.title}
-                            </h3>
-                            {!lesson.unlocked && (
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                              </svg>
-                            )}
-                          </div>
-
-                          <p style={{ 
-                            fontSize: 13, 
-                            color: '#64748b',
-                            marginBottom: 12
-                          }}>
-                            {lesson.duration}
-                          </p>
-
-                          <p style={{ 
-                            fontSize: 15, 
-                            color: '#64748b',
-                            lineHeight: 1.7,
-                            marginBottom: 16
-                          }}>
-                            {lesson.description}
-                          </p>
-
-                          {/* Topics */}
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                            {lesson.topics.map((topic, i) => (
-                              <span key={i} style={{
-                                background: '#f0fdf4',
-                                color: '#166534',
-                                padding: '6px 12px',
-                                borderRadius: 20,
-                                fontSize: 12,
-                                fontWeight: 500
-                              }}>
-                                {topic}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Progress line connector */}
-                      {index < lessons.length - 1 && (
-                        <div style={{
-                          position: 'absolute',
-                          left: 51,
-                          bottom: -16,
-                          width: 2,
-                          height: 16,
-                          background: '#e5e7eb'
-                        }} />
-                      )}
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
+      <div style={{ maxWidth: 900, margin: '0 auto', padding: '40px 20px' }}>
+        
+        {/* Lesson Header */}
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ 
+            display: 'inline-block',
+            background: '#f0fdf4', 
+            color: '#166534',
+            padding: '6px 12px',
+            borderRadius: 20,
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 16
+          }}>
+            Lesson 1 of 6
           </div>
+          <h1 style={{ 
+            fontSize: 36, 
+            color: '#111827', 
+            fontWeight: 600,
+            marginBottom: 12,
+            fontFamily: 'Georgia, serif'
+          }}>
+            The Birth of Positive Psychology
+          </h1>
+          <p style={{ color: '#64748b', fontSize: 16 }}>
+            Discover how a chance meeting in Hawaii sparked a revolution in psychology
+          </p>
+        </div>
 
-          {/* Sidebar */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-            
-            {/* Progress Card */}
-            <div style={{
-              background: '#ffffff',
-              borderRadius: 12,
-              padding: 28,
-              border: '1px solid #e5e7eb'
+        {/* Video Section */}
+        <div style={{
+          borderRadius: 16,
+          aspectRatio: '16/9',
+          marginBottom: 40,
+          position: 'relative',
+          overflow: 'hidden',
+          background: '#000'
+        }}>
+          <iframe
+            src="https://www.youtube.com/embed/FrI3uusjeFk"
+            title="Dr. Jolanta Burke - Birth of Positive Psychology"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              border: 'none'
+            }}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+
+        {/* Content */}
+        <div style={{ 
+          background: '#ffffff', 
+          borderRadius: 16, 
+          padding: 48,
+          border: '1px solid #e5e7eb',
+          marginBottom: 32
+        }}>
+          
+          {/* Jolanta's Story */}
+          <div style={{
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%)',
+            borderRadius: 12,
+            padding: 32,
+            marginBottom: 40,
+            borderLeft: '4px solid #22c55e'
+          }}>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 12,
+              marginBottom: 16
             }}>
-              <h3 style={{ 
-                fontSize: 18, 
-                fontWeight: 600, 
-                color: '#111827',
-                marginBottom: 24
-              }}>
-                Your Progress
-              </h3>
-
-              {/* Circular Progress */}
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center',
-                marginBottom: 24
-              }}>
-                <div style={{ position: 'relative', width: 140, height: 140 }}>
-                  <svg width="140" height="140" viewBox="0 0 140 140">
-                    {/* Background circle */}
-                    <circle
-                      cx="70"
-                      cy="70"
-                      r="60"
-                      fill="none"
-                      stroke="#e5e7eb"
-                      strokeWidth="10"
-                    />
-                    {/* Progress circle */}
-                    <circle
-                      cx="70"
-                      cy="70"
-                      r="60"
-                      fill="none"
-                      stroke="#22c55e"
-                      strokeWidth="10"
-                      strokeLinecap="round"
-                      strokeDasharray={`${progressPercent * 3.77} 377`}
-                      transform="rotate(-90 70 70)"
-                    />
-                  </svg>
-                  <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    textAlign: 'center'
-                  }}>
-                    <p style={{ fontSize: 36, fontWeight: 600, color: '#14532d' }}>
-                      {progressPercent}%
-                    </p>
-                    <p style={{ fontSize: 13, color: '#64748b' }}>Complete</p>
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between',
-                padding: '16px 0',
-                borderTop: '1px solid #e5e7eb'
-              }}>
-                <span style={{ color: '#64748b', fontSize: 14 }}>Lessons</span>
-                <span style={{ color: '#111827', fontSize: 14, fontWeight: 600 }}>
-                  {completedCount} / {totalLessons}
-                </span>
-              </div>
-            </div>
-
-            {/* About Card */}
-            <div style={{
-              background: '#ffffff',
-              borderRadius: 12,
-              padding: 28,
-              border: '1px solid #e5e7eb'
-            }}>
-              <h3 style={{ 
-                fontSize: 18, 
-                fontWeight: 600, 
-                color: '#111827',
-                marginBottom: 16
-              }}>
-                About This Module
-              </h3>
-              <p style={{ 
-                fontSize: 15, 
-                color: '#64748b',
-                lineHeight: 1.7,
-                marginBottom: 20
-              }}>
-                Explore the birth and evolution of positive psychology, from Seligman and 
-                Csikszentmihalyi's foundational work to contemporary developments and critical 
-                perspectives that have shaped the field.
-              </p>
-
-              <h4 style={{ 
-                fontSize: 14, 
-                fontWeight: 600, 
-                color: '#111827',
-                marginBottom: 12,
-                textTransform: 'uppercase',
-                letterSpacing: 0.5
-              }}>
-                Key References
-              </h4>
-              <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7 }}>
-                <p style={{ marginBottom: 8 }}>
-                  Seligman & Csikszentmihalyi (2000)
-                </p>
-                <p style={{ marginBottom: 8 }}>
-                  Lomas & Ivtzan (2016)
-                </p>
-                <p>
-                  Wong (2011)
-                </p>
-              </div>
-            </div>
-
-            {/* Start Button */}
-            <Link href="/modules/1/lessons/1" style={{ textDecoration: 'none' }}>
-              <button style={{
-                width: '100%',
-                padding: '16px 24px',
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
                 background: '#14532d',
-                color: '#ffffff',
-                border: 'none',
-                borderRadius: 10,
-                fontSize: 16,
-                fontWeight: 600,
-                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 10
+                color: '#ffffff',
+                fontSize: 14,
+                fontWeight: 600
               }}>
-                {completedCount === 0 ? 'Start Module' : 'Continue Learning'}
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </button>
-            </Link>
+                JB
+              </div>
+              <div>
+                <p style={{ fontWeight: 600, color: '#14532d', fontSize: 15 }}>Dr. Jolanta Burke</p>
+                <p style={{ color: '#64748b', fontSize: 13 }}>Personal Reflection</p>
+              </div>
+            </div>
+            <p style={{ 
+              color: '#166534', 
+              fontSize: 17, 
+              lineHeight: 1.8,
+              fontStyle: 'italic'
+            }}>
+              "I have been deeply immersed in positive psychology for over two decades. From an early age, 
+              I aspired to be a psychologist or psychotherapist – I wanted to help people. Yet, shortly 
+              after completing my bachelor's degree, I gave away all my psychology textbooks and found 
+              myself at crossroads. None of the traditional topics in psychology sparked my interest well 
+              enough to pursue a master's degree. However, everything changed when I discovered positive 
+              psychology."
+            </p>
           </div>
+
+          {/* Main Content */}
+          <h2 style={{ 
+            fontSize: 24, 
+            color: '#111827', 
+            fontWeight: 600, 
+            marginBottom: 20,
+            fontFamily: 'Georgia, serif'
+          }}>
+            A Chance Meeting in Hawaii
+          </h2>
+          
+          <p style={{ 
+            fontSize: 17, 
+            color: '#374151', 
+            lineHeight: 1.9, 
+            marginBottom: 24 
+          }}>
+            In the 1990s while on family holidays in Hawaii, two psychologists, <strong>Martin Seligman</strong> from 
+            the University of Pennsylvania and <strong>Mihaly Csikszentmihalyi</strong> from Claremont Graduate 
+            University, accidentally crossed paths. Rather than lounging on the beach with cocktails in hand, 
+            they spent hours discussing the need for psychology to pivot away from discussing what is wrong 
+            with people and focus on what is right.
+          </p>
+
+          <p style={{ 
+            fontSize: 17, 
+            color: '#374151', 
+            lineHeight: 1.9, 
+            marginBottom: 24 
+          }}>
+            Inspired by their conversation, they decided to take action and vowed to create a special interest 
+            group at the American Psychological Association (APA) that would explore the topics that were 
+            neglected by the psychological field, such as strengths, creativity, and optimism.
+          </p>
+
+          {/* Quote Box */}
+          <div style={{
+            background: '#f8fafc',
+            borderRadius: 12,
+            padding: 32,
+            margin: '32px 0',
+            borderLeft: '4px solid #14532d'
+          }}>
+            <p style={{ 
+              fontSize: 18, 
+              color: '#14532d', 
+              lineHeight: 1.8,
+              fontStyle: 'italic',
+              margin: 0
+            }}>
+              "Imagine living in a world where everyone focuses on what is wrong with you, defines you 
+              through all the mistakes you have made, and barely considers all the positives. No matter 
+              how resilient you are, it is bound to wear you down at some point."
+            </p>
+            <p style={{ color: '#64748b', fontSize: 14, marginTop: 16 }}>
+              — From "The Foundation of Positive Psychology"
+            </p>
+          </div>
+
+          <h2 style={{ 
+            fontSize: 24, 
+            color: '#111827', 
+            fontWeight: 600, 
+            marginBottom: 20,
+            marginTop: 40,
+            fontFamily: 'Georgia, serif'
+          }}>
+            The Birth of a Movement
+          </h2>
+
+          <p style={{ 
+            fontSize: 17, 
+            color: '#374151', 
+            lineHeight: 1.9, 
+            marginBottom: 24 
+          }}>
+            Soon after, Martin and Mihaly invited Ray Fowler from the University of Alabama and, with all 
+            their families, went to a "psychedelic" Grateful Dead house in Yucatán, Gulf of Mexico, to create 
+            the field of positive psychology. Over the years, they were joined by other like-minded psychologists, 
+            such as Christopher Peterson, Barbara Fredrickson, Ed Diener, and others, who began to shape the 
+            contours of the field as we know it.
+          </p>
+
+          <p style={{ 
+            fontSize: 17, 
+            color: '#374151', 
+            lineHeight: 1.9, 
+            marginBottom: 24 
+          }}>
+            Then in 1998, Martin Seligman became the president of the APA. In his inaugural speech, he called 
+            for others to join the conversation and explore the emerging field of positive psychology. Little 
+            did they know that what began as a small group would soon expand into the fastest-growing field 
+            in psychology.
+          </p>
+
+          {/* The Three Pillars */}
+          <h2 style={{ 
+            fontSize: 24, 
+            color: '#111827', 
+            fontWeight: 600, 
+            marginBottom: 20,
+            marginTop: 40,
+            fontFamily: 'Georgia, serif'
+          }}>
+            The Three Pillars of Positive Psychology
+          </h2>
+
+          <p style={{ 
+            fontSize: 17, 
+            color: '#374151', 
+            lineHeight: 1.9, 
+            marginBottom: 24 
+          }}>
+            In their foundational 2000 paper, Seligman and Csikszentmihalyi proposed that positive psychology 
+            should address three main areas:
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 32 }}>
+            {[
+              {
+                title: 'Positive Subjective Experiences',
+                description: 'Examining positive emotions, such as happiness, life satisfaction, and joy, to understand their role in enhancing overall wellbeing and quality of life.'
+              },
+              {
+                title: 'Positive Individual Traits',
+                description: 'Studying individual strengths, virtues, and character traits that contribute to a good life. These traits can help us uncover another side of human beings rarely discussed in psychology.'
+              },
+              {
+                title: 'Positive Institutions and Communities',
+                description: 'Understanding societal and environmental factors that facilitate human flourishing, including supportive social networks, nurturing communities, educational institutions, and workplaces.'
+              }
+            ].map((pillar, i) => (
+              <div key={i} style={{
+                background: '#f8fafc',
+                borderRadius: 12,
+                padding: 24,
+                border: '1px solid #e2e8f0'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                  <div style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    background: '#14532d',
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 14,
+                    fontWeight: 600
+                  }}>
+                    {i + 1}
+                  </div>
+                  <h3 style={{ fontSize: 17, fontWeight: 600, color: '#111827' }}>
+                    {pillar.title}
+                  </h3>
+                </div>
+                <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.7, marginLeft: 44 }}>
+                  {pillar.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Another Jolanta Story */}
+          <div style={{
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%)',
+            borderRadius: 12,
+            padding: 32,
+            marginBottom: 40,
+            borderLeft: '4px solid #22c55e'
+          }}>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 12,
+              marginBottom: 16
+            }}>
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
+                background: '#14532d',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#ffffff',
+                fontSize: 14,
+                fontWeight: 600
+              }}>
+                JB
+              </div>
+              <div>
+                <p style={{ fontWeight: 600, color: '#14532d', fontSize: 15 }}>Dr. Jolanta Burke</p>
+                <p style={{ color: '#64748b', fontSize: 13 }}>On Discovering the Field</p>
+              </div>
+            </div>
+            <p style={{ 
+              color: '#166534', 
+              fontSize: 17, 
+              lineHeight: 1.8,
+              fontStyle: 'italic'
+            }}>
+              "I clearly remember the early days of positive psychology, when even academics were unfamiliar 
+              with it. Today, positive psychology has become mainstream, and my conversations with colleagues 
+              and strangers curious about positive psychology are different. Given that people have developed 
+              opinions about it, and they either embrace it or approach it with scepticism, I savour meaningful 
+              discussions, spending hours exploring various perspectives on its research and practice."
+            </p>
+          </div>
+
+          {/* Key References */}
+          <h2 style={{ 
+            fontSize: 20, 
+            color: '#111827', 
+            fontWeight: 600, 
+            marginBottom: 16,
+            marginTop: 40
+          }}>
+            Key References
+          </h2>
+          
+          <div style={{
+            background: '#f8fafc',
+            borderRadius: 8,
+            padding: 20,
+            fontSize: 14,
+            color: '#64748b',
+            lineHeight: 1.8
+          }}>
+            <p style={{ marginBottom: 12 }}>
+              Seligman, M. E. P., & Csikszentmihalyi, M. (2000). Positive psychology: An introduction. 
+              <em>American Psychologist, 55</em>(1), 5–14.
+            </p>
+            <p>
+              Sheldon, K. M., & King, L. (2001). Why positive psychology is necessary. 
+              <em>American Psychologist, 56</em>(3), 216–217.
+            </p>
+          </div>
+        </div>
+
+        {/* Reflection Section */}
+        <div style={{ 
+          background: '#ffffff', 
+          borderRadius: 16, 
+          padding: 48,
+          border: '1px solid #e5e7eb',
+          marginBottom: 32
+        }}>
+          <h2 style={{ 
+            fontSize: 24, 
+            color: '#111827', 
+            fontWeight: 600, 
+            marginBottom: 20,
+            fontFamily: 'Georgia, serif'
+          }}>
+            Reflection Questions
+          </h2>
+          <p style={{ color: '#64748b', marginBottom: 24, fontSize: 15 }}>
+            Take a moment to reflect on what you've learned. Consider journaling your thoughts.
+          </p>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {[
+              'How did you first discover positive psychology? What drew you to it?',
+              'Think about your own experience with traditional psychology or self-help. Did it focus more on problems or on strengths?',
+              'Which of the three pillars (experiences, traits, or institutions) resonates most with you and why?'
+            ].map((question, i) => (
+              <div key={i} style={{
+                background: '#f8fafc',
+                borderRadius: 12,
+                padding: 20,
+                border: '1px solid #e2e8f0'
+              }}>
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <div style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: '50%',
+                    background: '#e0f2fe',
+                    color: '#0369a1',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    flexShrink: 0
+                  }}>
+                    {i + 1}
+                  </div>
+                  <p style={{ fontSize: 16, color: '#374151', lineHeight: 1.6 }}>
+                    {question}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '24px 0'
+        }}>
+          <Link href="/modules/1" style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            color: '#64748b',
+            textDecoration: 'none',
+            fontSize: 15,
+            fontWeight: 500
+          }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Module
+          </Link>
+
+          <button
+            onClick={() => setIsCompleted(!isCompleted)}
+            style={{
+              background: isCompleted ? '#22c55e' : '#14532d',
+              color: '#ffffff',
+              border: 'none',
+              padding: '14px 28px',
+              borderRadius: 8,
+              fontSize: 15,
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8
+            }}
+          >
+            {isCompleted ? (
+              <>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Completed
+              </>
+            ) : (
+              'Mark as Complete'
+            )}
+          </button>
+
+          <Link href="/modules/1/lessons/2" style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            color: '#14532d',
+            textDecoration: 'none',
+            fontSize: 15,
+            fontWeight: 600
+          }}>
+            Next Lesson
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </Link>
         </div>
       </div>
     </div>
